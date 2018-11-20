@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="KlH-Y2-gfO">
+    <device id="ipad9_7" orientation="landscape">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -9,9 +12,9 @@
         <!--Game View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModule="PlantsVsZombies" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="4qk-I5-YsI"/>
@@ -19,6 +22,172 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="206" y="-477"/>
+        </scene>
+        <!--WikiChoice-->
+        <scene sceneID="dxN-NE-haI">
+            <objects>
+                <viewController title="WikiChoice" id="nyw-uI-BPe" customClass="WikiChoiceViewController" customModule="PlantsVsZombies" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YZk-4t-GMa">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kHs-Yh-rzF">
+                                <rect key="frame" x="891" y="680" width="101" height="72"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                <state key="normal" title="返回"/>
+                                <connections>
+                                    <segue destination="9eX-Sc-OdU" kind="unwind" unwindAction="homepageUnwindSegueWithUnwindSegue:" id="jZt-fP-UwX"/>
+                                </connections>
+                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="57" translatesAutoresizingMaskIntoConstraints="NO" id="qFP-na-Zhd">
+                                <rect key="frame" x="244" y="320" width="537" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jBt-J4-foc">
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="idG-wl-MAp" appends="YES" id="Vlv-H9-Kf5"/>
+                                        </connections>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TGa-ma-7d5">
+                                        <rect key="frame" x="297" y="0.0" width="240" height="128"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="Enq-Og-mEH" appends="YES" id="fqg-Dx-Geo"/>
+                                        </connections>
+                                    </imageView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="q2r-52-D4D" firstAttribute="bottom" secondItem="kHs-Yh-rzF" secondAttribute="bottom" constant="16" id="8wU-lw-Hrt"/>
+                            <constraint firstItem="q2r-52-D4D" firstAttribute="trailing" secondItem="kHs-Yh-rzF" secondAttribute="trailing" constant="32" id="zjE-fK-dAO"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="q2r-52-D4D"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SyZ-gF-9Ak" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="NqL-y0-7AT" userLabel="Exit" sceneMemberID="exit"/>
+                <tapGestureRecognizer id="idG-wl-MAp">
+                    <connections>
+                        <action selector="jumpToPlants:" destination="nyw-uI-BPe" id="ha1-Xd-lfi"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="Enq-Og-mEH"/>
+            </objects>
+            <point key="canvasLocation" x="206" y="345"/>
+        </scene>
+        <!--Wiki View Controller-->
+        <scene sceneID="6xR-29-lOe">
+            <objects>
+                <viewController id="MEy-nM-Y37" customClass="WikiViewController" customModule="PlantsVsZombies" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IWT-e4-sI7">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k7A-aA-7KM">
+                                <rect key="frame" x="891" y="680" width="101" height="72"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                <state key="normal" title="返回"/>
+                                <connections>
+                                    <segue destination="NqL-y0-7AT" kind="unwind" unwindAction="wikiChoiceUnwindSegueWithUnwindSegue:" id="cqN-lB-did"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="70D-kA-PJ9" firstAttribute="bottom" secondItem="k7A-aA-7KM" secondAttribute="bottom" constant="16" id="ENn-lJ-FX6"/>
+                            <constraint firstItem="70D-kA-PJ9" firstAttribute="trailing" secondItem="k7A-aA-7KM" secondAttribute="trailing" constant="32" id="ass-MO-zae"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="70D-kA-PJ9"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="v8O-RR-EGe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="912" y="345"/>
+        </scene>
+        <!--DaveShop-->
+        <scene sceneID="Aze-wZ-Mbg">
+            <objects>
+                <viewController title="DaveShop" id="wJP-EA-v3r" customClass="DaveShopViewController" customModule="PlantsVsZombies" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1h2-Ua-iWD">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wv6-qY-Yld">
+                                <rect key="frame" x="891" y="680" width="101" height="72"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                <state key="normal" title="返回"/>
+                                <connections>
+                                    <segue destination="9eX-Sc-OdU" kind="unwind" unwindAction="homepageUnwindSegueWithUnwindSegue:" id="kaC-Zs-SN7"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="h4l-mk-6ji" firstAttribute="bottom" secondItem="wv6-qY-Yld" secondAttribute="bottom" constant="16" id="UXT-vu-7Lm"/>
+                            <constraint firstItem="h4l-mk-6ji" firstAttribute="trailing" secondItem="wv6-qY-Yld" secondAttribute="trailing" constant="32" id="k3T-jA-jKc"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="h4l-mk-6ji"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NzB-8t-QQH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="205.6640625" y="1179.6875"/>
+        </scene>
+        <!--HomePageController-->
+        <scene sceneID="yMU-di-liv">
+            <objects>
+                <viewController title="HomePageController" id="KlH-Y2-gfO" customClass="HomePageViewController" customModule="PlantsVsZombies" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3wd-3z-T8w">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Gm5-SH-WgJ">
+                                <rect key="frame" x="793" y="268" width="101" height="232"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JLb-08-cRV">
+                                        <rect key="frame" x="0.0" y="0.0" width="101" height="72"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                        <state key="normal" title="开始"/>
+                                        <connections>
+                                            <segue destination="BV1-FR-VrT" kind="show" id="dfW-sW-hJI"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i7H-ed-acD">
+                                        <rect key="frame" x="0.0" y="80" width="101" height="72"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                        <state key="normal" title="图鉴"/>
+                                        <connections>
+                                            <segue destination="nyw-uI-BPe" kind="show" id="Eit-i6-jy1"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RrX-Im-jMC">
+                                        <rect key="frame" x="0.0" y="160" width="101" height="72"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                        <state key="normal" title="商店"/>
+                                        <connections>
+                                            <segue destination="wJP-EA-v3r" kind="show" id="qW5-b5-SWw"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="GVx-4k-VrN" firstAttribute="trailing" secondItem="Gm5-SH-WgJ" secondAttribute="trailing" constant="130" id="Nms-9p-cxX"/>
+                            <constraint firstItem="Gm5-SH-WgJ" firstAttribute="centerY" secondItem="3wd-3z-T8w" secondAttribute="centerY" id="XbV-eX-apR"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="GVx-4k-VrN"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yon-pt-Tro" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="9eX-Sc-OdU" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="-535" y="346"/>
         </scene>
     </scenes>
 </document>

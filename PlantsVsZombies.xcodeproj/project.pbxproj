@@ -16,6 +16,10 @@
 		237992E121A3FA22003005D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 237992E021A3FA22003005D0 /* Assets.xcassets */; };
 		237992E421A3FA22003005D0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 237992E221A3FA22003005D0 /* LaunchScreen.storyboard */; };
 		237992EF21A3FA22003005D0 /* PlantsVsZombiesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237992EE21A3FA22003005D0 /* PlantsVsZombiesTests.swift */; };
+		2379930121A3FF24003005D0 /* DaveShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2379930021A3FF24003005D0 /* DaveShopViewController.swift */; };
+		2379930321A401B2003005D0 /* WikiChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2379930221A401B2003005D0 /* WikiChoiceViewController.swift */; };
+		2379930521A40386003005D0 /* HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2379930421A40386003005D0 /* HomePageViewController.swift */; };
+		2379930721A40CB6003005D0 /* WikiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2379930621A40CB6003005D0 /* WikiViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +46,10 @@
 		237992EA21A3FA22003005D0 /* PlantsVsZombiesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlantsVsZombiesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		237992EE21A3FA22003005D0 /* PlantsVsZombiesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantsVsZombiesTests.swift; sourceTree = "<group>"; };
 		237992F021A3FA22003005D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2379930021A3FF24003005D0 /* DaveShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaveShopViewController.swift; sourceTree = "<group>"; };
+		2379930221A401B2003005D0 /* WikiChoiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiChoiceViewController.swift; sourceTree = "<group>"; };
+		2379930421A40386003005D0 /* HomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageViewController.swift; sourceTree = "<group>"; };
+		2379930621A40CB6003005D0 /* WikiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +91,10 @@
 		237992D221A3FA1B003005D0 /* PlantsVsZombies */ = {
 			isa = PBXGroup;
 			children = (
+				237992FF21A3FB7D003005D0 /* Controller */,
+				237992FE21A3FB76003005D0 /* Scene */,
+				237992FC21A3FB18003005D0 /* Plants */,
+				237992FD21A3FB1E003005D0 /* Zombies */,
 				237992D321A3FA1B003005D0 /* AppDelegate.swift */,
 				237992D521A3FA1B003005D0 /* GameScene.sks */,
 				237992D721A3FA1B003005D0 /* Actions.sks */,
@@ -103,6 +115,38 @@
 				237992F021A3FA22003005D0 /* Info.plist */,
 			);
 			path = PlantsVsZombiesTests;
+			sourceTree = "<group>";
+		};
+		237992FC21A3FB18003005D0 /* Plants */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Plants;
+			sourceTree = "<group>";
+		};
+		237992FD21A3FB1E003005D0 /* Zombies */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Zombies;
+			sourceTree = "<group>";
+		};
+		237992FE21A3FB76003005D0 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		237992FF21A3FB7D003005D0 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2379930021A3FF24003005D0 /* DaveShopViewController.swift */,
+				2379930221A401B2003005D0 /* WikiChoiceViewController.swift */,
+				2379930421A40386003005D0 /* HomePageViewController.swift */,
+				2379930621A40CB6003005D0 /* WikiViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -208,9 +252,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2379930121A3FF24003005D0 /* DaveShopViewController.swift in Sources */,
 				237992DA21A3FA1B003005D0 /* GameScene.swift in Sources */,
+				2379930521A40386003005D0 /* HomePageViewController.swift in Sources */,
+				2379930321A401B2003005D0 /* WikiChoiceViewController.swift in Sources */,
 				237992DC21A3FA1B003005D0 /* GameViewController.swift in Sources */,
 				237992D421A3FA1B003005D0 /* AppDelegate.swift in Sources */,
+				2379930721A40CB6003005D0 /* WikiViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
