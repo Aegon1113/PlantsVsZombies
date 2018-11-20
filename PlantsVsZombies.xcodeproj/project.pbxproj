@@ -98,8 +98,6 @@
 				237992D321A3FA1B003005D0 /* AppDelegate.swift */,
 				237992D521A3FA1B003005D0 /* GameScene.sks */,
 				237992D721A3FA1B003005D0 /* Actions.sks */,
-				237992D921A3FA1B003005D0 /* GameScene.swift */,
-				237992DB21A3FA1B003005D0 /* GameViewController.swift */,
 				237992DD21A3FA1B003005D0 /* Main.storyboard */,
 				237992E021A3FA22003005D0 /* Assets.xcassets */,
 				237992E221A3FA22003005D0 /* LaunchScreen.storyboard */,
@@ -134,6 +132,7 @@
 		237992FE21A3FB76003005D0 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				237992D921A3FA1B003005D0 /* GameScene.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -141,6 +140,7 @@
 		237992FF21A3FB7D003005D0 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				237992DB21A3FA1B003005D0 /* GameViewController.swift */,
 				2379930021A3FF24003005D0 /* DaveShopViewController.swift */,
 				2379930221A401B2003005D0 /* WikiChoiceViewController.swift */,
 				2379930421A40386003005D0 /* HomePageViewController.swift */,
