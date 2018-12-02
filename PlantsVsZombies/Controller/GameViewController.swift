@@ -1,20 +1,24 @@
 //
 //  GameViewController.swift
-//  PlantsVsZombies
+//  PlantVsZombie
 //
-//  Created by Aclivn on 2018/11/20.
-//  Copyright © 2018 Aclivn. All rights reserved.
+//  Created by apple on 2018/11/13.
+//  Copyright © 2018年 nju. All rights reserved.
 //
 
 import UIKit
 import SpriteKit
 import GameplayKit
 
-class GameViewController: UIViewController {
+import UIKit
+import SpriteKit
+import GameplayKit
 
+class GameViewController: UIViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        /*
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
             if let scene = SKScene(fileNamed: "GameScene") {
@@ -24,18 +28,30 @@ class GameViewController: UIViewController {
                 // Present the scene
                 view.presentScene(scene)
             }
-            
-            view.ignoresSiblingOrder = true
-            
-            view.showsFPS = true
-            view.showsNodeCount = true
-        }
+         view.ignoresSiblingOrder = true
+         
+         view.showsFPS = true
+         view.showsNodeCount = true         */
+        let scene = GameScene(size: view.bounds.size)
+        let skView = self.view as! SKView
+        scene.scaleMode = .aspectFill
+        skView.presentScene(scene)
+        skView.showsNodeCount = true
+        /*
+        let scene = GameScene(size:view.bounds.size)
+        let skView = view as! SKView
+        skView.showsFPS = true
+        skView.showsNodeCount = true
+        skView.ignoresSiblingOrder = true
+        scene.scaleMode = .resizeFill
+        skView.presentScene(scene)
+     */
     }
-
+    
     override var shouldAutorotate: Bool {
         return true
     }
-
+    
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if UIDevice.current.userInterfaceIdiom == .phone {
             return .allButUpsideDown
@@ -43,7 +59,7 @@ class GameViewController: UIViewController {
             return .all
         }
     }
-
+    
     override var prefersStatusBarHidden: Bool {
         return true
     }

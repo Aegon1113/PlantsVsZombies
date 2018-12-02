@@ -7,11 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2348D40E21B3A66F00A206B7 /* Zombie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2348D40D21B3A66E00A206B7 /* Zombie.swift */; };
+		2348D41021B3A69F00A206B7 /* Zombie.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2348D40F21B3A69F00A206B7 /* Zombie.atlas */; };
+		2348D41221B3A6B900A206B7 /* ConeheadZombie.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2348D41121B3A6B900A206B7 /* ConeheadZombie.atlas */; };
+		2348D41421B3A6D700A206B7 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2348D41321B3A6D700A206B7 /* GameScene.swift */; };
+		2348D41621B3A70800A206B7 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2348D41521B3A70800A206B7 /* GameViewController.swift */; };
+		2348D41821B3AA9900A206B7 /* Peashooter.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2348D41721B3AA9900A206B7 /* Peashooter.atlas */; };
+		2348D41A21B3AAE400A206B7 /* Plant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2348D41921B3AAE400A206B7 /* Plant.swift */; };
+		2348D41D21B3CBA800A206B7 /* BackgroundPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2348D41C21B3CBA800A206B7 /* BackgroundPosition.swift */; };
 		237992D421A3FA1B003005D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237992D321A3FA1B003005D0 /* AppDelegate.swift */; };
 		237992D621A3FA1B003005D0 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 237992D521A3FA1B003005D0 /* GameScene.sks */; };
 		237992D821A3FA1B003005D0 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 237992D721A3FA1B003005D0 /* Actions.sks */; };
-		237992DA21A3FA1B003005D0 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237992D921A3FA1B003005D0 /* GameScene.swift */; };
-		237992DC21A3FA1B003005D0 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237992DB21A3FA1B003005D0 /* GameViewController.swift */; };
 		237992DF21A3FA1B003005D0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 237992DD21A3FA1B003005D0 /* Main.storyboard */; };
 		237992E121A3FA22003005D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 237992E021A3FA22003005D0 /* Assets.xcassets */; };
 		237992E421A3FA22003005D0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 237992E221A3FA22003005D0 /* LaunchScreen.storyboard */; };
@@ -33,12 +39,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2348D40D21B3A66E00A206B7 /* Zombie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Zombie.swift; sourceTree = "<group>"; };
+		2348D40F21B3A69F00A206B7 /* Zombie.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Zombie.atlas; sourceTree = "<group>"; };
+		2348D41121B3A6B900A206B7 /* ConeheadZombie.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = ConeheadZombie.atlas; sourceTree = "<group>"; };
+		2348D41321B3A6D700A206B7 /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		2348D41521B3A70800A206B7 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		2348D41721B3AA9900A206B7 /* Peashooter.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Peashooter.atlas; sourceTree = "<group>"; };
+		2348D41921B3AAE400A206B7 /* Plant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plant.swift; sourceTree = "<group>"; };
+		2348D41C21B3CBA800A206B7 /* BackgroundPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundPosition.swift; sourceTree = "<group>"; };
 		237992D021A3FA1B003005D0 /* PlantsVsZombies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlantsVsZombies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		237992D321A3FA1B003005D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		237992D521A3FA1B003005D0 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		237992D721A3FA1B003005D0 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
-		237992D921A3FA1B003005D0 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
-		237992DB21A3FA1B003005D0 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		237992DE21A3FA1B003005D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		237992E021A3FA22003005D0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		237992E321A3FA22003005D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -91,6 +103,9 @@
 		237992D221A3FA1B003005D0 /* PlantsVsZombies */ = {
 			isa = PBXGroup;
 			children = (
+				2348D41721B3AA9900A206B7 /* Peashooter.atlas */,
+				2348D41121B3A6B900A206B7 /* ConeheadZombie.atlas */,
+				2348D40F21B3A69F00A206B7 /* Zombie.atlas */,
 				237992FF21A3FB7D003005D0 /* Controller */,
 				237992FE21A3FB76003005D0 /* Scene */,
 				237992FC21A3FB18003005D0 /* Plants */,
@@ -118,6 +133,7 @@
 		237992FC21A3FB18003005D0 /* Plants */ = {
 			isa = PBXGroup;
 			children = (
+				2348D41921B3AAE400A206B7 /* Plant.swift */,
 			);
 			path = Plants;
 			sourceTree = "<group>";
@@ -125,6 +141,7 @@
 		237992FD21A3FB1E003005D0 /* Zombies */ = {
 			isa = PBXGroup;
 			children = (
+				2348D40D21B3A66E00A206B7 /* Zombie.swift */,
 			);
 			path = Zombies;
 			sourceTree = "<group>";
@@ -132,7 +149,8 @@
 		237992FE21A3FB76003005D0 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				237992D921A3FA1B003005D0 /* GameScene.swift */,
+				2348D41321B3A6D700A206B7 /* GameScene.swift */,
+				2348D41C21B3CBA800A206B7 /* BackgroundPosition.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -140,7 +158,7 @@
 		237992FF21A3FB7D003005D0 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				237992DB21A3FA1B003005D0 /* GameViewController.swift */,
+				2348D41521B3A70800A206B7 /* GameViewController.swift */,
 				2379930021A3FF24003005D0 /* DaveShopViewController.swift */,
 				2379930221A401B2003005D0 /* WikiChoiceViewController.swift */,
 				2379930421A40386003005D0 /* HomePageViewController.swift */,
@@ -233,8 +251,11 @@
 				237992DF21A3FA1B003005D0 /* Main.storyboard in Resources */,
 				237992D621A3FA1B003005D0 /* GameScene.sks in Resources */,
 				237992E121A3FA22003005D0 /* Assets.xcassets in Resources */,
+				2348D41221B3A6B900A206B7 /* ConeheadZombie.atlas in Resources */,
 				237992E421A3FA22003005D0 /* LaunchScreen.storyboard in Resources */,
+				2348D41821B3AA9900A206B7 /* Peashooter.atlas in Resources */,
 				237992D821A3FA1B003005D0 /* Actions.sks in Resources */,
+				2348D41021B3A69F00A206B7 /* Zombie.atlas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,10 +274,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				2379930121A3FF24003005D0 /* DaveShopViewController.swift in Sources */,
-				237992DA21A3FA1B003005D0 /* GameScene.swift in Sources */,
+				2348D41A21B3AAE400A206B7 /* Plant.swift in Sources */,
+				2348D41D21B3CBA800A206B7 /* BackgroundPosition.swift in Sources */,
 				2379930521A40386003005D0 /* HomePageViewController.swift in Sources */,
+				2348D41421B3A6D700A206B7 /* GameScene.swift in Sources */,
 				2379930321A401B2003005D0 /* WikiChoiceViewController.swift in Sources */,
-				237992DC21A3FA1B003005D0 /* GameViewController.swift in Sources */,
+				2348D41621B3A70800A206B7 /* GameViewController.swift in Sources */,
+				2348D40E21B3A66F00A206B7 /* Zombie.swift in Sources */,
 				237992D421A3FA1B003005D0 /* AppDelegate.swift in Sources */,
 				2379930721A40CB6003005D0 /* WikiViewController.swift in Sources */,
 			);
