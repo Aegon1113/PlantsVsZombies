@@ -9,12 +9,24 @@
 import SpriteKit
 import GameplayKit
 
-class GameScene: SKScene {
+enum Plant{
+    case Empty
+    case Peashooter
+    case Sunflower
+}
+let PlantCategory:UInt32 = 1<<1
+let BulletCategory:UInt32 = 1<<2
+let ZombieCategory:UInt32 = 1<<3
+
+class GameScene: SKScene,SKPhysicsContactDelegate {
     
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
     private var selectNode : SKNode?
     private var backgroundpositions : BackgroundPositions?
+    private var bulletCount : Int?
+    private var zombieHeight : CGFloat?
+    private var plantHeight : CGFloat?
     /*
      override func didMove(to view: SKView) {
      
@@ -40,6 +52,7 @@ class GameScene: SKScene {
      }
      */
     
+
     
     func touchDown(atPoint pos : CGPoint) {
         if let n = self.spinnyNode?.copy() as! SKShapeNode? {
@@ -97,6 +110,7 @@ class GameScene: SKScene {
                 print("hello Peashooter")
                 plant.size = CGSize(width:71*size.width/1920*1.9,height:71*size.height/1080*1.9)
                 var location = t.location(in: self)
+                print(location)
                 var occupiedX:CGPoint
                 occupiedX = delectPositionX(position: location, height: plant.size.height)
                 var occupiedY:CGPoint
@@ -107,9 +121,18 @@ class GameScene: SKScene {
                     break;
                 }
                 plant.position = CGPoint(x:location.x,y:location.y)
+                print(plant.position)
                 plant.Action()
+                //Attack(haveZombie:true,position:plant.position)
+                //plant.Attack(haveZombie: true,position:plant.position,size:self.size)
+                
+                plant.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:plant.size.width/1.5,height:plant.size.height/2))
+                plant.physicsBody?.categoryBitMask = PlantCategory
+                plant.physicsBody?.collisionBitMask = 0
+                plant.physicsBody?.contactTestBitMask = ZombieCategory
+                
                 addChild(plant)
-                backgroundpositions?.backgroundPositions[Int(occupiedX.y)][Int(occupiedY.y)].setPlant()
+                backgroundpositions?.backgroundPositions[Int(occupiedX.y)][Int(occupiedY.y)].setPlant(plantPosition:plant.position)
                 selectNode = nil
                 break;
             default:break;
@@ -125,11 +148,36 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+        
+        
+        
+        for i in 1...9{
+            for j in 1...5{
+                if let temp = backgroundpositions?.backgroundPositions[i][j] as? BackgroundPosition {
+                    if temp.plant == Plant.Peashooter && temp.zombieNum>0 {
+                        if temp.bulletCount == 0 || bulletCount! - temp.bulletCount > 30{
+                        Attack(haveZombie: true, position: (backgroundpositions?.backgroundPositions[i][j].plantPosition)!)
+                            temp.bulletCount = bulletCount!
+                        }
+                    }
+                }
+            }
+        }
+        
+        bulletCount = bulletCount! + 1
+
     }
     
-    let player = SKSpriteNode(imageNamed:"Zombie")
+    
     override func didMove(to view: SKView){
         //backgroundColor = SKColor.green
+        bulletCount = 0
+        zombieHeight = 144*size.height/1080*1.9
+        plantHeight = 71*size.height/1080*1.9
+        
+        physicsWorld.contactDelegate = self
+        physicsWorld.gravity = CGVector.zero
+        
         let background = SKSpriteNode(imageNamed: "PVZBackground_3.jpg")
         print(background.size.width,background.size.height)
         //background.size = CGSize(width:size.width,height:size.height)
@@ -175,7 +223,7 @@ class GameScene: SKScene {
         run(SKAction.repeatForever(
             SKAction.sequence([
                 SKAction.run(addMonster),
-                SKAction.wait(forDuration:20.0)
+                SKAction.wait(forDuration:5.0)
                 ])
         ))
         
@@ -189,10 +237,10 @@ class GameScene: SKScene {
         return random()*(max-min)+min
     }
     
-    func getRandom(height:CGFloat)->CGFloat{
+    func getRandom(height:CGFloat)->CGPoint{
         let ratio = CGFloat(size.height/600)
         let Random = CGFloat(arc4random()%5)
-        return (25+Random*98)*ratio+height/2
+        return CGPoint(x:(25+Random*98)*ratio+height/2,y:Random+1)
     }
     
     func addMonster(){
@@ -212,30 +260,67 @@ class GameScene: SKScene {
             let monster = Zombie()
             monster.size = CGSize(width:166*size.width/1920*1.9,height:144*size.height/1080*1.9)
             //let actualY = random(min:monster.size.height,max:size.height-monster.size.height)
-            let actualY = getRandom(height:monster.size.height)
+            let random = getRandom(height:monster.size.height)
+            let actualY = random.x
             print(actualY)
             monster.position = CGPoint(x:size.width+monster.size.width/2,y:actualY)
             //monster.zPosition = 20
             //monster.size = CGSize(width:166,height:144)
+            
+            monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.width/2,height:monster.size.height/2))
+            monster.physicsBody?.categoryBitMask = ZombieCategory
+            monster.physicsBody?.collisionBitMask = 0
+            monster.physicsBody?.contactTestBitMask = BulletCategory
+            
+            
             addChild(monster)
+            
+            for i in 1...9{
+                backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+            }
             let actionMove = SKAction.move(to: CGPoint(x:-monster.size.width/5,y:actualY), duration: 60)
             let actionMoveDone = SKAction.removeFromParent()
             monster.run(SKAction.sequence([actionMove,actionMoveDone]))
+            /*
+            if monster.position.x < size.width {
+                for i in 1...9{
+                    backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+                }
+            }
+            */
             break;
             
         case 1:
             let monster = ConeheadZombie()
             monster.size = CGSize(width:166*size.width/1920*1.9,height:144*size.height/1080*1.9)
             //let actualY = random(min:monster.size.height,max:size.height-monster.size.height)
-            let actualY = getRandom(height:monster.size.height)
+            let random = getRandom(height:monster.size.height)
+            let actualY = random.x
             print(actualY)
             monster.position = CGPoint(x:size.width+monster.size.width/2,y:actualY)
             //monster.zPosition = 20
             //monster.size = CGSize(width:166,height:144)
+            monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.width/2,height:monster.size.height/2))
+            monster.physicsBody?.categoryBitMask = ZombieCategory
+            monster.physicsBody?.collisionBitMask = 0
+            monster.physicsBody?.contactTestBitMask = BulletCategory
+            
             addChild(monster)
+            
+            for i in 1...9{
+                backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+            }
+            
             let actionMove = SKAction.move(to: CGPoint(x:-monster.size.width/5,y:actualY), duration: 60)
             let actionMoveDone = SKAction.removeFromParent()
             monster.run(SKAction.sequence([actionMove,actionMoveDone]))
+            /*
+            if monster.position.x < size.width {
+                for i in 1...9{
+                    backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+                }
+            }
+            */
             break;
             
         default:break;
@@ -261,31 +346,31 @@ class GameScene: SKScene {
             return CGPoint(x:0,y:1)
         }
         else if 3*size.width/13<position.x && position.x<size.width*4/13{
-            return CGPoint(x:3*size.width/13,y:1)
+            return CGPoint(x:3.5*size.width/13,y:1)
         }
         else if 4*size.width/13<position.x && position.x<size.width*5/13{
-            return CGPoint(x:4*size.width/13,y:2)
+            return CGPoint(x:4.5*size.width/13,y:2)
         }
         else if 5*size.width/13<position.x && position.x<size.width*6/13{
-            return CGPoint(x:5*size.width/13,y:3)
+            return CGPoint(x:5.5*size.width/13,y:3)
         }
         else if 6*size.width/13<position.x && position.x<size.width*7/13{
-            return CGPoint(x:6*size.width/13,y:4)
+            return CGPoint(x:6.5*size.width/13,y:4)
         }
         else if 7*size.width/13<position.x && position.x<size.width*8/13{
-            return CGPoint(x:7*size.width/13,y:5)
+            return CGPoint(x:7.5*size.width/13,y:5)
         }
         else if 8*size.width/13<position.x && position.x<size.width*9/13{
-            return CGPoint(x:8*size.width/13,y:6)
+            return CGPoint(x:8.5*size.width/13,y:6)
         }
         else if 9*size.width/13<position.x && position.x<size.width*10/13{
-            return CGPoint(x:9*size.width/13,y:7)
+            return CGPoint(x:9.5*size.width/13,y:7)
         }
         else if 10*size.width/13<position.x && position.x<size.width*11/13{
-            return CGPoint(x:10*size.width/13,y:8)
+            return CGPoint(x:10.5*size.width/13,y:8)
         }
         else if 11*size.width/13<position.x && position.x<size.width*12/13{
-            return CGPoint(x:11*size.width/13,y:9)
+            return CGPoint(x:11.5*size.width/13,y:9)
         }
         else {
             return CGPoint(x:0,y:1)
@@ -314,11 +399,85 @@ class GameScene: SKScene {
     }
     
     func isOccupied(col:Int, row:Int)->Bool{
+        print(col,row)
         if let temp = backgroundpositions?.backgroundPositions[col][row] as? BackgroundPosition{
             return temp.isOccupied()
         }
        return true
     }
     
+    func Attack(haveZombie:Bool,position:CGPoint){
+        if haveZombie{
+            let bullet = SKSpriteNode(imageNamed: "PB0_L.png")
+            
+            bullet.size = CGSize(width:bullet.size.width/1.5,height:bullet.size.height/2)
+            bullet.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:bullet.size.width/1.5,height:bullet.size.height/2))
+            bullet.physicsBody?.categoryBitMask = BulletCategory
+            bullet.physicsBody?.collisionBitMask = 0
+            bullet.physicsBody?.contactTestBitMask = ZombieCategory
+            
+            bullet.position = CGPoint(x:position.x+bullet.size.width,y:position.y+bullet.size.height/2)
+            //print("bullet:",bullet.position)
+            addChild(bullet)
+            let attack = SKAction.move(to: CGPoint(x:14*size.width/13,y:bullet.position.y), duration: 6)
+            let attackDone = SKAction.removeFromParent()
+            bullet.run(SKAction.sequence([attack,attackDone]))
+        }
+    }
+    
+    /*
+    func checkCollisions(){
+        
+    }
+    
+    override func didEvaluateActions() {
+        checkCollisions()
+    }
+     */
+    
+    func zombieDie(zombie:SKNode){
+        let positionY = Int(delectPositionY(position: zombie.position, height: zombieHeight!).y)
+        for i in 1...9{
+            backgroundpositions?.backgroundPositions[i][positionY].zombieNum -= 1
+        }
+    }
+    
+    func plantDie(plant:SKNode){
+        let positionX = Int(delectPositionX(position: plant.position, height: plantHeight!).y)
+        let positionY = Int(delectPositionY(position: plant.position, height: plantHeight!).y)
+        print(positionX,positionY)
+        backgroundpositions?.backgroundPositions[positionX][positionY].removerPlant()
+    
+    }
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        if (contact.bodyA.categoryBitMask == BulletCategory && contact.bodyB.categoryBitMask == ZombieCategory) || (contact.bodyB.categoryBitMask == BulletCategory && contact.bodyA.categoryBitMask == ZombieCategory){
+            print("zombie die")
+            
+            if contact.bodyA.categoryBitMask == ZombieCategory {
+                zombieDie(zombie:contact.bodyA.node!)
+            }
+            else {
+                zombieDie(zombie:contact.bodyB.node!)
+            }
+            
+            contact.bodyA.node?.removeFromParent()
+            contact.bodyB.node?.removeFromParent()
+        }
+        
+        if (contact.bodyA.categoryBitMask == PlantCategory && contact.bodyB.categoryBitMask == ZombieCategory) || (contact.bodyB.categoryBitMask == PlantCategory && contact.bodyA.categoryBitMask == ZombieCategory){
+            print("plant die")
+            
+            if contact.bodyA.categoryBitMask == PlantCategory {
+                plantDie(plant:contact.bodyA.node!)
+                contact.bodyA.node?.removeFromParent()
+            }
+            else {
+                plantDie(plant:contact.bodyB.node!)
+                contact.bodyB.node?.removeFromParent()
+            }
+            
+        }
+    }
     
 }
