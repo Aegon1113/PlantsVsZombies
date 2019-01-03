@@ -26,6 +26,12 @@
 		2379930321A401B2003005D0 /* WikiChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2379930221A401B2003005D0 /* WikiChoiceViewController.swift */; };
 		2379930521A40386003005D0 /* HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2379930421A40386003005D0 /* HomePageViewController.swift */; };
 		2379930721A40CB6003005D0 /* WikiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2379930621A40CB6003005D0 /* WikiViewController.swift */; };
+		237C516421DE288500D86555 /* SunFlower.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 237C516321DE288500D86555 /* SunFlower.atlas */; };
+		237C516621DE289200D86555 /* SnowPea.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 237C516521DE289200D86555 /* SnowPea.atlas */; };
+		237C516821DE289A00D86555 /* CherryBomb.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 237C516721DE289A00D86555 /* CherryBomb.atlas */; };
+		237C516A21DE28A200D86555 /* Threepeater.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 237C516921DE28A200D86555 /* Threepeater.atlas */; };
+		237C516C21DE2DC800D86555 /* Sun.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 237C516B21DE2DC800D86555 /* Sun.atlas */; };
+		237C516F21DE2E2800D86555 /* Sun.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237C516E21DE2E2800D86555 /* Sun.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +68,12 @@
 		2379930221A401B2003005D0 /* WikiChoiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiChoiceViewController.swift; sourceTree = "<group>"; };
 		2379930421A40386003005D0 /* HomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageViewController.swift; sourceTree = "<group>"; };
 		2379930621A40CB6003005D0 /* WikiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiViewController.swift; sourceTree = "<group>"; };
+		237C516321DE288500D86555 /* SunFlower.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SunFlower.atlas; sourceTree = "<group>"; };
+		237C516521DE289200D86555 /* SnowPea.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SnowPea.atlas; sourceTree = "<group>"; };
+		237C516721DE289A00D86555 /* CherryBomb.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = CherryBomb.atlas; sourceTree = "<group>"; };
+		237C516921DE28A200D86555 /* Threepeater.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Threepeater.atlas; sourceTree = "<group>"; };
+		237C516B21DE2DC800D86555 /* Sun.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Sun.atlas; sourceTree = "<group>"; };
+		237C516E21DE2E2800D86555 /* Sun.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sun.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +115,11 @@
 		237992D221A3FA1B003005D0 /* PlantsVsZombies */ = {
 			isa = PBXGroup;
 			children = (
+				237C516B21DE2DC800D86555 /* Sun.atlas */,
+				237C516921DE28A200D86555 /* Threepeater.atlas */,
+				237C516721DE289A00D86555 /* CherryBomb.atlas */,
+				237C516521DE289200D86555 /* SnowPea.atlas */,
+				237C516321DE288500D86555 /* SunFlower.atlas */,
 				2348D41721B3AA9900A206B7 /* Peashooter.atlas */,
 				2348D41121B3A6B900A206B7 /* ConeheadZombie.atlas */,
 				2348D40F21B3A69F00A206B7 /* Zombie.atlas */,
@@ -134,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				2348D41921B3AAE400A206B7 /* Plant.swift */,
+				237C516E21DE2E2800D86555 /* Sun.swift */,
 			);
 			path = Plants;
 			sourceTree = "<group>";
@@ -251,10 +269,15 @@
 				237992DF21A3FA1B003005D0 /* Main.storyboard in Resources */,
 				237992D621A3FA1B003005D0 /* GameScene.sks in Resources */,
 				237992E121A3FA22003005D0 /* Assets.xcassets in Resources */,
+				237C516621DE289200D86555 /* SnowPea.atlas in Resources */,
 				2348D41221B3A6B900A206B7 /* ConeheadZombie.atlas in Resources */,
+				237C516C21DE2DC800D86555 /* Sun.atlas in Resources */,
 				237992E421A3FA22003005D0 /* LaunchScreen.storyboard in Resources */,
+				237C516821DE289A00D86555 /* CherryBomb.atlas in Resources */,
 				2348D41821B3AA9900A206B7 /* Peashooter.atlas in Resources */,
 				237992D821A3FA1B003005D0 /* Actions.sks in Resources */,
+				237C516A21DE28A200D86555 /* Threepeater.atlas in Resources */,
+				237C516421DE288500D86555 /* SunFlower.atlas in Resources */,
 				2348D41021B3A69F00A206B7 /* Zombie.atlas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -282,6 +305,7 @@
 				2348D41621B3A70800A206B7 /* GameViewController.swift in Sources */,
 				2348D40E21B3A66F00A206B7 /* Zombie.swift in Sources */,
 				237992D421A3FA1B003005D0 /* AppDelegate.swift in Sources */,
+				237C516F21DE2E2800D86555 /* Sun.swift in Sources */,
 				2379930721A40CB6003005D0 /* WikiViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -445,6 +469,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 99M38P3JM9;
 				INFOPLIST_FILE = PlantsVsZombies/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -462,6 +487,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 99M38P3JM9;
 				INFOPLIST_FILE = PlantsVsZombies/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -12,11 +12,12 @@ import GameplayKit
 enum Plant{
     case Empty
     case Peashooter
-    case Sunflower
+    case SunFlower
 }
 let PlantCategory:UInt32 = 1<<1
 let BulletCategory:UInt32 = 1<<2
 let ZombieCategory:UInt32 = 1<<3
+let sunSum = SKLabelNode(fontNamed: "OpenSans-Bold")
 
 class GameScene: SKScene,SKPhysicsContactDelegate {
     
@@ -92,6 +93,27 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 case "Peashooter":
                     selectNode = temp
                     break;
+                case "SunFlower":
+                    selectNode = temp
+                    break;
+                case "Sun":
+                    let sun = Sun()
+                    sun.position = temp.position
+                    sun.size = CGSize(width:71*size.width/1920*1.9,height:71*size.height/1080*1.9)
+                    
+                    sun.Action()
+                    addChild(sun)
+                    
+                    temp.removeFromParent()
+                    
+                    let collectSun = SKAction.move(to: CGPoint(x:size.width/4+15,y:size.height-30), duration: 1)
+                    let collectDone = SKAction.removeFromParent()
+                    sun.run(SKAction.sequence([collectSun,collectDone]))
+                    
+                    let intsunSum = (sunSum.text! as NSString).intValue + 25
+                    let stringsunSum = "\(intsunSum)"
+                    sunSum.text = stringsunSum
+                    break;
                 default: break;
                 }
             }
@@ -106,7 +128,14 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         for t in touches {
             switch (selectNode?.name){
             case "Peashooter":
+                let intsunSum = (sunSum.text! as NSString).intValue
+                if intsunSum < 100 {
+                    selectNode = nil
+                    break;
+                }
                 let plant = Peashooter()
+                sunSum.text = "\(intsunSum - 100)"
+                
                 print("hello Peashooter")
                 plant.size = CGSize(width:71*size.width/1920*1.9,height:71*size.height/1080*1.9)
                 var location = t.location(in: self)
@@ -132,9 +161,45 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 plant.physicsBody?.contactTestBitMask = ZombieCategory
                 
                 addChild(plant)
-                backgroundpositions?.backgroundPositions[Int(occupiedX.y)][Int(occupiedY.y)].setPlant(plantPosition:plant.position)
+                backgroundpositions?.backgroundPositions[Int(occupiedX.y)][Int(occupiedY.y)].setPeashooter(plantPosition:plant.position)
                 selectNode = nil
                 break;
+            case "SunFlower":
+                let intsunSum = (sunSum.text! as NSString).intValue
+                print("suncount",intsunSum)
+                if intsunSum < 50 {
+                    selectNode = nil
+                    break;
+                }
+                let plant = SunFlower()
+                sunSum.text = "\(intsunSum-50)"
+                print("hello SunFlower")
+                plant.size = CGSize(width:71*size.width/1920*1.9,height:71*size.height/1080*1.9)
+                var location = t.location(in: self)
+                print(location)
+                var occupiedX:CGPoint
+                occupiedX = delectPositionX(position: location, height: plant.size.height)
+                var occupiedY:CGPoint
+                occupiedY = delectPositionY(position: location, height: plant.size.height)
+                location.x = occupiedX.x
+                location.y = occupiedY.x
+                if location.x == 0 || isOccupied(col: Int(occupiedX.y), row:Int(occupiedY.y) ){
+                    break;
+                }
+                plant.position = CGPoint(x:location.x,y:location.y)
+                print(plant.position)
+                plant.Action()
+                //Attack(haveZombie:true,position:plant.position)
+                //plant.Attack(haveZombie: true,position:plant.position,size:self.size)
+                
+                plant.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:plant.size.width/1.5,height:plant.size.height/2))
+                plant.physicsBody?.categoryBitMask = PlantCategory
+                plant.physicsBody?.collisionBitMask = 0
+                plant.physicsBody?.contactTestBitMask = ZombieCategory
+                
+                addChild(plant)
+                backgroundpositions?.backgroundPositions[Int(occupiedX.y)][Int(occupiedY.y)].setSunFlower(plantPosition:plant.position)
+                selectNode = nil
             default:break;
             }
             
@@ -160,11 +225,19 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                             temp.bulletCount = bulletCount!
                         }
                     }
+                    else if temp.plant == Plant.SunFlower {
+                        if temp.sunCount > 300 {
+                            produceSun(position: temp.plantPosition)
+                            temp.sunCount = 0
+                        }
+                        temp.sunCount = temp.sunCount + 1
+                    }
                 }
             }
         }
         
         bulletCount = bulletCount! + 1
+        
 
     }
     
@@ -177,6 +250,14 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         
         physicsWorld.contactDelegate = self
         physicsWorld.gravity = CGVector.zero
+        
+        /*
+        let sunSum = SKLabelNode(fontNamed: "OpenSans-Bold")
+        sunSum.text = "0"
+        sunSum.fontSize = 45
+        sunSum.position = CGPoint(x:size.width/3,y:size.height*3/4)
+        addChild(sunSum)
+        */
         
         let background = SKSpriteNode(imageNamed: "PVZBackground_3.jpg")
         print(background.size.width,background.size.height)
@@ -209,6 +290,34 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         toChoosePlant1.position = CGPoint(x:toChooseBackground1.size.width,y:toChooseBackground1.size.height)
         addChild(toChoosePlant1)
         
+        let toChooseBackground2 = SKSpriteNode(imageNamed: "SeedChooser_Background.png")
+        toChooseBackground2.size = CGSize(width:80*size.width/1920*1.9,height:80*size.height/1080*1.9)
+        toChooseBackground2.position = CGPoint(x:toChooseBackground2.size.width,y:toChooseBackground2.size.height*2)
+        addChild(toChooseBackground2)
+        
+        let toChoosePlant2 = SKSpriteNode(imageNamed: "SunFlower.png")
+        toChoosePlant2.size = CGSize(width:71*size.width/1920*1.9,height:71*size.height/1080*1.9)
+        toChoosePlant2.name = "SunFlower"
+        toChoosePlant2.position = CGPoint(x:toChooseBackground2.size.width,y:toChooseBackground2.size.height*2)
+        addChild(toChoosePlant2)
+        
+        let toChooseBackground3 = SKSpriteNode(imageNamed: "SeedChooser_Background.png")
+        toChooseBackground3.size = CGSize(width:80*size.width/1920*1.9,height:80*size.height/1080*1.9)
+        toChooseBackground3.position = CGPoint(x:toChooseBackground3.size.width,y:toChooseBackground3.size.height*3)
+        addChild(toChooseBackground3)
+        
+        let toChooseBackground4 = SKSpriteNode(imageNamed: "SeedChooser_Background.png")
+        toChooseBackground4.size = CGSize(width:80*size.width/1920*1.9,height:80*size.height/1080*1.9)
+        toChooseBackground4.position = CGPoint(x:toChooseBackground4.size.width,y:toChooseBackground4.size.height*4)
+        addChild(toChooseBackground4)
+        
+        let toChooseBackground5 = SKSpriteNode(imageNamed: "SeedChooser_Background.png")
+        toChooseBackground5.size = CGSize(width:80*size.width/1920*1.9,height:80*size.height/1080*1.9)
+        toChooseBackground5.position = CGPoint(x:toChooseBackground5.size.width,y:toChooseBackground5.size.height*5)
+        addChild(toChooseBackground5)
+        
+        
+        
         /*
         let toChoosePlant1 = Peashooter()
         toChoosePlant1.size = CGSize(width:71*size.width/1920*1.9,height:71*size.height/1080*1.9)
@@ -217,7 +326,16 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         toChoosePlant1.Action()
         addChild(toChoosePlant1)
          */
+        let sunBack = SKSpriteNode(imageNamed: "SunBack.png")
+        print("sunBack",sunBack.size)
+        sunBack.position = CGPoint(x:size.width/4,y:size.height-17)
+        addChild(sunBack)
         
+        sunSum.text = "500"
+        sunSum.fontSize = 34
+        sunSum.fontColor = UIColor.black
+        sunSum.position = CGPoint(x:size.width/4+15,y:size.height-30)
+        addChild(sunSum)
         
             
         run(SKAction.repeatForever(
@@ -274,13 +392,21 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             
             
             addChild(monster)
-            
+            /*
             for i in 1...9{
                 backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
             }
+            */
             let actionMove = SKAction.move(to: CGPoint(x:-monster.size.width/5,y:actualY), duration: 60)
             let actionMoveDone = SKAction.removeFromParent()
             monster.run(SKAction.sequence([actionMove,actionMoveDone]))
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(3)){
+                
+                for i in 1...9{
+                    self.backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+                }
+            }
             /*
             if monster.position.x < size.width {
                 for i in 1...9{
@@ -307,13 +433,21 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             
             addChild(monster)
             
-            for i in 1...9{
-                backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
-            }
             
             let actionMove = SKAction.move(to: CGPoint(x:-monster.size.width/5,y:actualY), duration: 60)
             let actionMoveDone = SKAction.removeFromParent()
             monster.run(SKAction.sequence([actionMove,actionMoveDone]))
+            /*
+            let time: TimeInterval = 3.0
+            let delay = dispatch_time(dispatch_time_t(DispatchTime.now()), Int64(time * Double(NSEC_PER_SEC)))
+            */
+            DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(3)){
+                
+                for i in 1...9{
+                    self.backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+                }
+            }
+            
             /*
             if monster.position.x < size.width {
                 for i in 1...9{
@@ -480,4 +614,26 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         }
     }
     
+    func produceSun(position:CGPoint){
+        let sun = Sun()
+        sun.position = position
+        sun.size = CGSize(width:71*size.width/1920*1.9,height:71*size.height/1080*1.9)
+        
+        sun.Action()
+        addChild(sun)
+        sun.name = "Sun"
+        
+        let sunMove1 = SKAction.move(to: CGPoint(x:position.x,y:position.y+50), duration: 0.7)
+        let sunMove2 = SKAction.move(to: CGPoint(x:position.x,y:position.y-20), duration: 1.2)
+        
+        sun.run(SKAction.sequence([sunMove1,sunMove2]))
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(5)){
+            sun.removeFromParent()
+        }
+        
+    }
+    
 }
+
+

@@ -17,6 +17,7 @@ class BackgroundPosition{
     public var plant: Plant
     public var plantPosition: CGPoint
     public var bulletCount: Int
+    public var sunCount:Int
     public var zombieNum: Int
     
     init(columns:Int, rows:Int){
@@ -27,15 +28,22 @@ class BackgroundPosition{
         plantPosition = CGPoint(x:0,y:0)
         bulletCount = 0
         zombieNum = 0
+        sunCount = 0
     }
     
     func isOccupied()->Bool{
         return occupied
     }
     
-    func setPlant(plantPosition:CGPoint){
+    func setPeashooter(plantPosition:CGPoint){
         occupied = true
         plant = Plant.Peashooter
+        self.plantPosition = plantPosition
+    }
+    
+    func setSunFlower(plantPosition:CGPoint){
+        occupied = true
+        plant = Plant.SunFlower
         self.plantPosition = plantPosition
     }
     
