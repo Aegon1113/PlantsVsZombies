@@ -32,39 +32,68 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kHs-Yh-rzF">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wikibackground" translatesAutoresizingMaskIntoConstraints="NO" id="txX-je-PG0">
+                                <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iqm-s2-RNv">
                                 <rect key="frame" x="891" y="680" width="101" height="72"/>
+                                <color key="backgroundColor" red="1" green="0.71863023079999999" blue="0.076561508939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                 <state key="normal" title="返回"/>
                                 <connections>
-                                    <segue destination="9eX-Sc-OdU" kind="unwind" unwindAction="homepageUnwindSegueWithUnwindSegue:" id="jZt-fP-UwX"/>
+                                    <segue destination="NqL-y0-7AT" kind="unwind" unwindAction="homepageUnwindSegueWithUnwindSegue:" id="UTg-6M-9AQ"/>
                                 </connections>
                             </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="57" translatesAutoresizingMaskIntoConstraints="NO" id="qFP-na-Zhd">
-                                <rect key="frame" x="244" y="320" width="537" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2el-JN-6IK">
+                                <rect key="frame" x="384" y="311" width="256" height="146"/>
                                 <subviews>
-                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jBt-J4-foc">
-                                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                        <gestureRecognizers/>
-                                        <connections>
-                                            <outletCollection property="gestureRecognizers" destination="idG-wl-MAp" appends="YES" id="Vlv-H9-Kf5"/>
-                                        </connections>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TGa-ma-7d5">
-                                        <rect key="frame" x="297" y="0.0" width="240" height="128"/>
-                                        <gestureRecognizers/>
-                                        <connections>
-                                            <outletCollection property="gestureRecognizers" destination="Enq-Og-mEH" appends="YES" id="fqg-Dx-Geo"/>
-                                        </connections>
-                                    </imageView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="6jg-Yr-PHe">
+                                        <rect key="frame" x="0.0" y="0.0" width="256" height="108"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SunFlower" translatesAutoresizingMaskIntoConstraints="NO" id="dMr-Wz-acs">
+                                                <rect key="frame" x="0.0" y="0.0" width="124" height="108"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bucketforwiki" translatesAutoresizingMaskIntoConstraints="NO" id="OkY-04-KLE">
+                                                <rect key="frame" x="132" y="0.0" width="124" height="108"/>
+                                            </imageView>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="D29-Ln-zph">
+                                        <rect key="frame" x="0.0" y="116" width="256" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QfN-tL-i9Y">
+                                                <rect key="frame" x="0.0" y="0.0" width="124" height="30"/>
+                                                <color key="backgroundColor" red="1" green="0.71863023079999999" blue="0.076561508939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" title="植物">
+                                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <segue destination="MEy-nM-Y37" kind="show" id="Tp3-GH-srS"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O4M-nW-ccY">
+                                                <rect key="frame" x="132" y="0.0" width="124" height="30"/>
+                                                <color key="backgroundColor" red="1" green="0.71863023079999999" blue="0.076561508939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" title="僵尸"/>
+                                                <connections>
+                                                    <segue destination="MEy-nM-Y37" kind="show" id="d2N-FK-GUF"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="q2r-52-D4D" firstAttribute="bottom" secondItem="kHs-Yh-rzF" secondAttribute="bottom" constant="16" id="8wU-lw-Hrt"/>
-                            <constraint firstItem="q2r-52-D4D" firstAttribute="trailing" secondItem="kHs-Yh-rzF" secondAttribute="trailing" constant="32" id="zjE-fK-dAO"/>
+                            <constraint firstItem="q2r-52-D4D" firstAttribute="bottom" secondItem="txX-je-PG0" secondAttribute="bottom" id="56d-z4-Gi0"/>
+                            <constraint firstItem="2el-JN-6IK" firstAttribute="centerY" secondItem="YZk-4t-GMa" secondAttribute="centerY" id="6uG-Jc-sVu"/>
+                            <constraint firstItem="q2r-52-D4D" firstAttribute="trailing" secondItem="iqm-s2-RNv" secondAttribute="trailing" constant="32" id="Mp7-st-Ejm"/>
+                            <constraint firstItem="q2r-52-D4D" firstAttribute="bottom" secondItem="iqm-s2-RNv" secondAttribute="bottom" constant="16" id="ao4-hs-3wY"/>
+                            <constraint firstItem="2el-JN-6IK" firstAttribute="centerX" secondItem="YZk-4t-GMa" secondAttribute="centerX" id="e6Z-av-Wmj"/>
+                            <constraint firstItem="txX-je-PG0" firstAttribute="leading" secondItem="q2r-52-D4D" secondAttribute="leading" id="puc-80-f7U"/>
+                            <constraint firstItem="q2r-52-D4D" firstAttribute="trailing" secondItem="txX-je-PG0" secondAttribute="trailing" id="rJN-EB-fDt"/>
+                            <constraint firstItem="txX-je-PG0" firstAttribute="top" secondItem="q2r-52-D4D" secondAttribute="top" id="rez-Ug-6RL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="q2r-52-D4D"/>
                     </view>
@@ -78,7 +107,7 @@
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="Enq-Og-mEH"/>
             </objects>
-            <point key="canvasLocation" x="206" y="345"/>
+            <point key="canvasLocation" x="205.6640625" y="344.53125"/>
         </scene>
         <!--Wiki View Controller-->
         <scene sceneID="6xR-29-lOe">
@@ -117,24 +146,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wv6-qY-Yld">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ep7-gg-PJb">
+                                <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TXt-Qx-cFm">
                                 <rect key="frame" x="891" y="680" width="101" height="72"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                 <state key="normal" title="返回"/>
                                 <connections>
-                                    <segue destination="9eX-Sc-OdU" kind="unwind" unwindAction="homepageUnwindSegueWithUnwindSegue:" id="kaC-Zs-SN7"/>
+                                    <segue destination="TLV-nW-xUf" kind="unwind" unwindAction="homepageUnwindSegueWithUnwindSegue:" id="M8X-Sb-vcf"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="h4l-mk-6ji" firstAttribute="bottom" secondItem="wv6-qY-Yld" secondAttribute="bottom" constant="16" id="UXT-vu-7Lm"/>
-                            <constraint firstItem="h4l-mk-6ji" firstAttribute="trailing" secondItem="wv6-qY-Yld" secondAttribute="trailing" constant="32" id="k3T-jA-jKc"/>
+                            <constraint firstItem="h4l-mk-6ji" firstAttribute="trailing" secondItem="ep7-gg-PJb" secondAttribute="trailing" id="Frd-L7-9Kk"/>
+                            <constraint firstItem="h4l-mk-6ji" firstAttribute="trailing" secondItem="TXt-Qx-cFm" secondAttribute="trailing" constant="32" id="Ifa-Ll-Wyx"/>
+                            <constraint firstItem="h4l-mk-6ji" firstAttribute="bottom" secondItem="ep7-gg-PJb" secondAttribute="bottom" id="JV9-8f-yWQ"/>
+                            <constraint firstItem="h4l-mk-6ji" firstAttribute="bottom" secondItem="TXt-Qx-cFm" secondAttribute="bottom" constant="16" id="K9W-4E-El5"/>
+                            <constraint firstItem="ep7-gg-PJb" firstAttribute="leading" secondItem="h4l-mk-6ji" secondAttribute="leading" id="UPG-Q5-sxM"/>
+                            <constraint firstItem="ep7-gg-PJb" firstAttribute="top" secondItem="h4l-mk-6ji" secondAttribute="top" id="Ub4-pb-fgW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="h4l-mk-6ji"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NzB-8t-QQH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="TLV-nW-xUf" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="205.6640625" y="1179.6875"/>
         </scene>
@@ -146,48 +183,65 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Gm5-SH-WgJ">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LoadingPage" translatesAutoresizingMaskIntoConstraints="NO" id="RId-9P-oRm">
+                                <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="s2u-OK-Qfp">
                                 <rect key="frame" x="793" y="268" width="101" height="232"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JLb-08-cRV">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ACn-sb-RQy">
                                         <rect key="frame" x="0.0" y="0.0" width="101" height="72"/>
+                                        <color key="backgroundColor" red="1" green="0.71863023084068622" blue="0.076561508937190714" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                         <state key="normal" title="开始"/>
                                         <connections>
-                                            <segue destination="BV1-FR-VrT" kind="show" id="dfW-sW-hJI"/>
+                                            <segue destination="BV1-FR-VrT" kind="show" id="m4Q-CB-R3L"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i7H-ed-acD">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WoT-fu-FHn">
                                         <rect key="frame" x="0.0" y="80" width="101" height="72"/>
+                                        <color key="backgroundColor" red="1" green="0.71863023079999999" blue="0.076561508939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                         <state key="normal" title="图鉴"/>
                                         <connections>
-                                            <segue destination="nyw-uI-BPe" kind="show" id="Eit-i6-jy1"/>
+                                            <segue destination="nyw-uI-BPe" kind="show" id="v5H-Zp-j21"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RrX-Im-jMC">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XmM-oa-Rm7">
                                         <rect key="frame" x="0.0" y="160" width="101" height="72"/>
+                                        <color key="backgroundColor" red="1" green="0.71863023079999999" blue="0.076561508939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                         <state key="normal" title="商店"/>
                                         <connections>
-                                            <segue destination="wJP-EA-v3r" kind="show" id="qW5-b5-SWw"/>
+                                            <segue destination="wJP-EA-v3r" kind="show" id="od9-Ij-daz"/>
                                         </connections>
                                     </button>
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="GVx-4k-VrN" firstAttribute="trailing" secondItem="Gm5-SH-WgJ" secondAttribute="trailing" constant="130" id="Nms-9p-cxX"/>
-                            <constraint firstItem="Gm5-SH-WgJ" firstAttribute="centerY" secondItem="3wd-3z-T8w" secondAttribute="centerY" id="XbV-eX-apR"/>
+                            <constraint firstItem="GVx-4k-VrN" firstAttribute="bottom" secondItem="RId-9P-oRm" secondAttribute="bottom" id="LgL-Z7-QwK"/>
+                            <constraint firstItem="RId-9P-oRm" firstAttribute="top" secondItem="GVx-4k-VrN" secondAttribute="top" id="MiP-L4-lKy"/>
+                            <constraint firstItem="RId-9P-oRm" firstAttribute="leading" secondItem="GVx-4k-VrN" secondAttribute="leading" id="TXn-o7-Lye"/>
+                            <constraint firstItem="s2u-OK-Qfp" firstAttribute="centerY" secondItem="3wd-3z-T8w" secondAttribute="centerY" id="cJp-Ob-mZD"/>
+                            <constraint firstItem="GVx-4k-VrN" firstAttribute="trailing" secondItem="s2u-OK-Qfp" secondAttribute="trailing" constant="130" id="i4s-2U-eeN"/>
+                            <constraint firstItem="GVx-4k-VrN" firstAttribute="trailing" secondItem="RId-9P-oRm" secondAttribute="trailing" id="one-Rt-56h"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GVx-4k-VrN"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yon-pt-Tro" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="9eX-Sc-OdU" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-535" y="346"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Bucketforwiki" width="124.5" height="108"/>
+        <image name="LoadingPage" width="480" height="320"/>
+        <image name="SunFlower" width="54.75" height="55.5"/>
+        <image name="wikibackground" width="553.67999267578125" height="381.60000610351562"/>
+    </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="d2N-FK-GUF"/>
+    </inferredMetricsTieBreakers>
 </document>

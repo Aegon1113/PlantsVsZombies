@@ -35,6 +35,8 @@ class GameViewController: UIViewController {
         let scene = GameScene(size: view.bounds.size)
         let skView = self.view as! SKView
         scene.scaleMode = .aspectFill
+        
+        skView.showsPhysics = true
         skView.presentScene(scene)
         skView.showsNodeCount = true
         /*

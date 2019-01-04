@@ -19,6 +19,8 @@ class BackgroundPosition{
     public var bulletCount: Int
     public var sunCount:Int
     public var zombieNum: Int
+    public var snowattackSpeed: Int
+    public var threeattackSpeed: Int
     
     init(columns:Int, rows:Int){
         self.columns = columns
@@ -29,6 +31,8 @@ class BackgroundPosition{
         bulletCount = 0
         zombieNum = 0
         sunCount = 0
+        snowattackSpeed = 0
+        threeattackSpeed = 0
     }
     
     func isOccupied()->Bool{
@@ -47,6 +51,24 @@ class BackgroundPosition{
         self.plantPosition = plantPosition
     }
     
+    func setSnowPea(plantPosition:CGPoint){
+        occupied = true
+        plant = Plant.SnowPea
+        self.plantPosition = plantPosition
+    }
+    
+    func setThreepeater(plantPosition:CGPoint){
+        occupied = true
+        plant = Plant.Threepeater
+        self.plantPosition = plantPosition
+    }
+    
+    func setCherryBomb(plantPosition:CGPoint){
+        occupied = true
+        plant = Plant.CherryBomb
+        self.plantPosition = plantPosition
+    }
+
     func removerPlant(){
         occupied = false
         plant = Plant.Empty
