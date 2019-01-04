@@ -8,6 +8,10 @@
 
 import UIKit
 
+var sunBuff = 0
+var shovelReturn = 0.0
+var hasCart = false
+
 class DaveShopViewController: UIViewController {
 
     override func viewDidLoad() {
@@ -15,7 +19,12 @@ class DaveShopViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
-    
+    //sun+: sunflower produce more sun
+    //shovel: return sun
+    //money: more money
+    //cart:
+    //
+    //
     /*
     // MARK: - Navigation
 

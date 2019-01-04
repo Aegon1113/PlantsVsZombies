@@ -21,6 +21,7 @@ let PlantCategory:UInt32 = 1<<1
 let BulletCategory:UInt32 = 1<<2
 let ZombieCategory:UInt32 = 1<<3
 let IcebulletCategory:UInt32 = 1<<4
+let BombCategory:UInt32 = 1<<5
 let sunSum = SKLabelNode(fontNamed: "OpenSans-Bold")
 
 class GameScene: SKScene,SKPhysicsContactDelegate {
@@ -315,14 +316,37 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 plant.Action()
                 //Attack(haveZombie:true,position:plant.position)
                 //plant.Attack(haveZombie: true,position:plant.position,size:self.size)
-                
-                plant.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:plant.size.width/1.5,height:plant.size.height/2))
-                plant.physicsBody?.categoryBitMask = PlantCategory
+                /*
+                plant.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:plant.size.width*1.5,height:plant.size.height*1.5))
+                plant.physicsBody?.categoryBitMask = BombCategory
                 plant.physicsBody?.collisionBitMask = 0
                 plant.physicsBody?.contactTestBitMask = ZombieCategory
-                
+                */
                 addChild(plant)
-                backgroundpositions?.backgroundPositions[Int(occupiedX.y)][Int(occupiedY.y)].setCherryBomb(plantPosition:plant.position)
+                //backgroundpositions?.backgroundPositions[Int(occupiedX.y)][Int(occupiedY.y)].setCherryBomb(plantPosition:plant.position)
+                plant.Action()
+                
+                let bomb = SKSpriteNode(imageNamed: "Boom_0.png")
+                bomb.position = plant.position
+                bomb.size = plant.size
+                
+                bomb.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:plant.size.width*3,height:plant.size.height*3))
+                bomb.physicsBody?.categoryBitMask = BombCategory
+                bomb.physicsBody?.collisionBitMask = 0
+                bomb.physicsBody?.contactTestBitMask = ZombieCategory
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(0.5)) {
+                    self.addChild(bomb)
+                    //plant.removeFromParent()
+                    //bomb.removeFromParent()
+                
+                    DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(0.3)) {
+                    //self.addChild(bomb)
+                        plant.removeFromParent()
+                        bomb.removeFromParent()
+                    }
+                }
+                
                 selectNode = nil
                 break;
             default:break;
@@ -699,7 +723,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             //monster.zPosition = 20
             //monster.size = CGSize(width:166,height:144)
             
-            monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.width/2-zombieHeight!/2,height:monster.size.height/2))
+            monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.height/2,height:monster.size.height))
             monster.physicsBody?.categoryBitMask = ZombieCategory
             monster.physicsBody?.collisionBitMask = 0
             monster.physicsBody?.contactTestBitMask = BulletCategory
@@ -740,7 +764,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             monster.position = CGPoint(x:size.width+monster.size.width/2,y:actualY)
             //monster.zPosition = 20
             //monster.size = CGSize(width:166,height:144)
-            monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.width/2-zombieHeight!/2,height:monster.size.height/2))
+            monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.height/2,height:monster.size.height))
             monster.physicsBody?.categoryBitMask = ZombieCategory
             monster.physicsBody?.collisionBitMask = 0
             monster.physicsBody?.contactTestBitMask = BulletCategory
@@ -932,6 +956,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 monster.physicsBody?.contactTestBitMask = BulletCategory
                 
                 zombie.removeFromParent()
+                zombie.removeAllActions()
                 addChild(monster)
                 monster.Action()
                 
@@ -954,6 +979,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 zombie.removeFromParent()
                 print("remove")
                 
+                zombie.removeAllActions()
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(0.1)){
                     print("stop")
                 }
@@ -968,8 +995,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 print("froozen")
                 monster.run(SKAction.sequence([actionMove,actionMoveDone]))
             }
-            */
             
+            */
         }
     }
     
@@ -1043,6 +1070,27 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 zombieunderIce(zombie: contact.bodyB.node!)
                 bulletDie(bullet: contact.bodyA.node!)
                 contact.bodyA.node?.removeFromParent()
+            }
+        }
+        
+        if (contact.bodyA.categoryBitMask == BombCategory && contact.bodyB.categoryBitMask == ZombieCategory) || (contact.bodyB.categoryBitMask == BombCategory && contact.bodyA.categoryBitMask == ZombieCategory){
+            print("zombie die")
+            
+            if contact.bodyA.categoryBitMask == ZombieCategory {
+                /*
+                zombieunderIce(zombie: contact.bodyA.node!)
+                bulletDie(bullet: contact.bodyB.node!)
+                contact.bodyB.node?.removeFromParent()
+                */
+                contact.bodyA.node!.removeFromParent()
+            }
+            else {
+                /*
+                zombieunderIce(zombie: contact.bodyB.node!)
+                bulletDie(bullet: contact.bodyA.node!)
+                contact.bodyA.node?.removeFromParent()
+                */
+                contact.bodyB.node!.removeFromParent()
             }
         }
         

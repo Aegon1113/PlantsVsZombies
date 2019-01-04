@@ -333,8 +333,17 @@ class CherryBomb:SKSpriteNode{
             let dbTexture = dbAtlas.textureNamed(tempName)
             dbFrames.append( dbTexture )
         }
-        self.run(SKAction.repeatForever(
-            SKAction.animate(with:dbFrames, timePerFrame: 0.1)))
+        self.run(SKAction.animate(with:dbFrames, timePerFrame: 0.3))
+        
+        /*
+        let bomb = SKSpriteNode(imageNamed: "Boom_0.png")
+        bomb.position = self.position
+        bomb.size = self.size
+        addChild(bomb)
+        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(0.3)) {
+            bomb.removeFromParent()
+        }
+        */
         
     }
 }
