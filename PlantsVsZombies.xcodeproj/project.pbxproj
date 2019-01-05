@@ -12,6 +12,8 @@
 		2342BDAC21E0C521006426FC /* SquashAttack.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2342BDAB21E0C521006426FC /* SquashAttack.atlas */; };
 		2342BDAE21E0CFCC006426FC /* ZombieFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2342BDAD21E0CFCC006426FC /* ZombieFactory.swift */; };
 		2342BDB021E0D0C2006426FC /* SunFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2342BDAF21E0D0C2006426FC /* SunFactory.swift */; };
+		2342BDB221E0FF31006426FC /* ZombieTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2342BDB121E0FF31006426FC /* ZombieTableViewController.swift */; };
+		2342BDB421E10749006426FC /* ZombieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2342BDB321E10749006426FC /* ZombieCell.swift */; };
 		2348D40E21B3A66F00A206B7 /* Zombie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2348D40D21B3A66E00A206B7 /* Zombie.swift */; };
 		2348D41021B3A69F00A206B7 /* Zombie.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2348D40F21B3A69F00A206B7 /* Zombie.atlas */; };
 		2348D41221B3A6B900A206B7 /* ConeheadZombie.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2348D41121B3A6B900A206B7 /* ConeheadZombie.atlas */; };
@@ -57,6 +59,8 @@
 		2342BDAB21E0C521006426FC /* SquashAttack.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SquashAttack.atlas; sourceTree = "<group>"; };
 		2342BDAD21E0CFCC006426FC /* ZombieFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZombieFactory.swift; sourceTree = "<group>"; };
 		2342BDAF21E0D0C2006426FC /* SunFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunFactory.swift; sourceTree = "<group>"; };
+		2342BDB121E0FF31006426FC /* ZombieTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZombieTableViewController.swift; sourceTree = "<group>"; };
+		2342BDB321E10749006426FC /* ZombieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZombieCell.swift; sourceTree = "<group>"; };
 		2348D40D21B3A66E00A206B7 /* Zombie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Zombie.swift; sourceTree = "<group>"; };
 		2348D40F21B3A69F00A206B7 /* Zombie.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Zombie.atlas; sourceTree = "<group>"; };
 		2348D41121B3A6B900A206B7 /* ConeheadZombie.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = ConeheadZombie.atlas; sourceTree = "<group>"; };
@@ -126,6 +130,15 @@
 			path = image;
 			sourceTree = "<group>";
 		};
+		2342BDB521E10CBA006426FC /* TableCell */ = {
+			isa = PBXGroup;
+			children = (
+				237B776C21E06C7F00758FAA /* CardCell.swift */,
+				2342BDB321E10749006426FC /* ZombieCell.swift */,
+			);
+			path = TableCell;
+			sourceTree = "<group>";
+		};
 		237992C721A3FA1B003005D0 = {
 			isa = PBXGroup;
 			children = (
@@ -147,6 +160,7 @@
 		237992D221A3FA1B003005D0 /* PlantsVsZombies */ = {
 			isa = PBXGroup;
 			children = (
+				2342BDB521E10CBA006426FC /* TableCell */,
 				2342BDA021E0B703006426FC /* image */,
 				237992FF21A3FB7D003005D0 /* Controller */,
 				237992FE21A3FB76003005D0 /* Scene */,
@@ -159,7 +173,6 @@
 				237992E021A3FA22003005D0 /* Assets.xcassets */,
 				237992E221A3FA22003005D0 /* LaunchScreen.storyboard */,
 				237992E521A3FA22003005D0 /* Info.plist */,
-				237B776C21E06C7F00758FAA /* CardCell.swift */,
 			);
 			path = PlantsVsZombies;
 			sourceTree = "<group>";
@@ -210,6 +223,7 @@
 				2379930621A40CB6003005D0 /* WikiViewController.swift */,
 				237B776A21E055D200758FAA /* PlantTableViewController.swift */,
 				23D2B7F321E087F300A3F5DD /* WikiChoiceController.swift */,
+				2342BDB121E0FF31006426FC /* ZombieTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -335,9 +349,11 @@
 				2348D41421B3A6D700A206B7 /* GameScene.swift in Sources */,
 				2348D41621B3A70800A206B7 /* GameViewController.swift in Sources */,
 				2348D40E21B3A66F00A206B7 /* Zombie.swift in Sources */,
+				2342BDB221E0FF31006426FC /* ZombieTableViewController.swift in Sources */,
 				237992D421A3FA1B003005D0 /* AppDelegate.swift in Sources */,
 				237C516F21DE2E2800D86555 /* Sun.swift in Sources */,
 				2342BDAE21E0CFCC006426FC /* ZombieFactory.swift in Sources */,
+				2342BDB421E10749006426FC /* ZombieCell.swift in Sources */,
 				2342BDB021E0D0C2006426FC /* SunFactory.swift in Sources */,
 				2379930721A40CB6003005D0 /* WikiViewController.swift in Sources */,
 				237B776D21E06C7F00758FAA /* CardCell.swift in Sources */,

@@ -37,15 +37,15 @@ class PlantTableViewController: UITableViewController {
                    "200",
                    "300",
                    "150"]
-    var introduction = ["生产阳光",
-                        "普通伤害的豌豆",
-                        "双倍伤害的豌豆",
-                        "进攻三行的豌豆",
-                        "对四周造成巨大伤害",
+    var introduction = ["每隔一段时间生产阳光",
+                        "每次发射一颗普通伤害的豌豆",
+                        "每次发射一颗双倍伤害的豌豆",
+                        "每次发射三颗豌豆m，进攻三行的敌人",
+                        "对四周的敌人造成巨大伤害",
                         "对单体造成巨大伤害",
-                        "",
-                        "",
-                        "对群体产生巨量伤害",
+                        "吞食两格距离内的敌人，需要较长时间消化",
+                        "与敌人同归于尽，需要较长的部署时间",
+                        "对群体产生巨量伤害,产生减速效果",
                         "无法反击，承受大量伤害",
                         "一次发射两颗普通豌豆",
                         "对群体造成大量伤害",
@@ -93,7 +93,7 @@ class PlantTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CardCell",for:indexPath) as! CardCell
         cell.plantIntro.text = introduction[indexPath.row]
         cell.plantName.text = plantNames[indexPath.row]
-        cell.plantCost.text = sunCost[indexPath.row]
+        cell.plantCost.text = "☀️：" + sunCost[indexPath.row]
         cell.plantImage.image = UIImage(named: plantImages[indexPath.row])
         //cell.contentView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi/2))
         return cell

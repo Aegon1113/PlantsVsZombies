@@ -1,21 +1,18 @@
 //
-//  CardCell.swift
+//  ZombieCell.swift
 //  PlantsVsZombies
 //
-//  Created by Aclivn on 2019/1/4.
+//  Created by Aclivn on 2019/1/5.
 //  Copyright © 2019 Aclivn. All rights reserved.
 //
 
 import UIKit
 
-class CardCell: UITableViewCell {
-
-    @IBOutlet weak var plantName: UILabel!
-    @IBOutlet weak var plantIntro: UILabel!
-    @IBOutlet weak var plantImage: UIImageView!
-    @IBOutlet weak var plantCost: UILabel!
-    
-    
+class ZombieCell: UITableViewCell {
+    @IBOutlet weak var zombieName: UILabel!
+    @IBOutlet weak var zombieIntro: UILabel!
+    @IBOutlet weak var zombieImage: UIImageView!
+    @IBOutlet weak var dangerDegree: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
