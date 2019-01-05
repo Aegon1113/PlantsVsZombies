@@ -11,10 +11,58 @@ import UIKit
 class PlantTableViewController: UITableViewController {
     //datasource
     //plantname,introduction,picture
-    var plantNames = ["向日葵","豌豆射手","冰冻射手","三枪射手","樱桃炸弹","窝瓜"]
-    var sunCost = ["50","100","175","325","150","50"]
-    var introduction = ["生产阳光","普通伤害的豌豆","双倍伤害的豌豆","进攻三行的豌豆","对四周造成巨大伤害","对单体造成巨大伤害"]
-    var plantImages = ["sunflowerwiki","Peashooterwiki","SnowPeawiki","Threepeaterwiki","CherryBombwiki","Squashwiki"]
+    var plantNames = ["向日葵",
+                      "豌豆射手",
+                      "冰冻射手",
+                      "三枪射手",
+                      "樱桃炸弹",
+                      "窝瓜",
+                      "食人花",
+                      "土豆地雷",
+                      "冰西瓜",
+                      "坚果墙",
+                      "双枪射手",
+                      "西瓜投手",
+                      "孪生向日葵"]
+    var sunCost = ["50",
+                   "100",
+                   "175",
+                   "325",
+                   "150",
+                   "50",
+                   "150",
+                   "25",
+                   "200",
+                   "50",
+                   "200",
+                   "300",
+                   "150"]
+    var introduction = ["生产阳光",
+                        "普通伤害的豌豆",
+                        "双倍伤害的豌豆",
+                        "进攻三行的豌豆",
+                        "对四周造成巨大伤害",
+                        "对单体造成巨大伤害",
+                        "",
+                        "",
+                        "对群体产生巨量伤害",
+                        "无法反击，承受大量伤害",
+                        "一次发射两颗普通豌豆",
+                        "对群体造成大量伤害",
+                        "种在普通向日葵上，一次产生两个阳光"]
+    var plantImages = ["sunflowerwiki",
+                       "Peashooterwiki",
+                       "SnowPeawiki",
+                       "Threepeaterwiki",
+                       "CherryBombwiki",
+                       "Squashwiki",
+                       "Chomperwiki",
+                       "Potatowiki",
+                       "Freezemelonwiki",
+                       "Peanutwiki",
+                       "Repeaterwiki",
+                       "Watermelonwiki",
+                       "TwinSunflowerwiki"]
     override func viewDidLoad() {
         super.viewDidLoad()
         //self.tableView.transform = CGAffineTransform(rotationAngle: CGFloat(-Double.pi/2))

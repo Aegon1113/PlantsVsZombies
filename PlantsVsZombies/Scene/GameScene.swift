@@ -16,13 +16,34 @@ enum Plant{
     case SnowPea
     case Threepeater
     case CherryBomb
+    case Squash
 }
 let PlantCategory:UInt32 = 1<<1
 let BulletCategory:UInt32 = 1<<2
 let ZombieCategory:UInt32 = 1<<3
 let IcebulletCategory:UInt32 = 1<<4
 let BombCategory:UInt32 = 1<<5
+let SquashCategory:UInt32 = 1<<6
 let sunSum = SKLabelNode(fontNamed: "OpenSans-Bold")
+let countLabel = SKLabelNode(fontNamed: "OpenSans-Bold")
+let cdLabel1 = SKLabelNode(fontNamed: "OpenSans-Bold")
+let cdLabel2 = SKLabelNode(fontNamed: "OpenSans-Bold")
+let cdLabel3 = SKLabelNode(fontNamed: "OpenSans-Bold")
+let cdLabel4 = SKLabelNode(fontNamed: "OpenSans-Bold")
+let cdLabel5 = SKLabelNode(fontNamed: "OpenSans-Bold")
+let cdLabel6 = SKLabelNode(fontNamed: "OpenSans-Bold")
+var Gametimer:Timer!
+var plantTimer1:Timer!
+var plantTimer2:Timer!
+var plantTimer3:Timer!
+var plantTimer4:Timer!
+var plantTimer5:Timer!
+var plantTimer6:Timer!
+//var plantTimer2:Timer!
+//var plantTimer3:Timer!
+//var plantTimer4:Timer!
+//var plantTimer5:Timer!
+//var plantTimer6:Timer!
 
 class GameScene: SKScene,SKPhysicsContactDelegate {
     
@@ -33,6 +54,29 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     private var bulletCount : Int?
     private var zombieHeight : CGFloat?
     private var plantHeight : CGFloat?
+    private var leftTime :Int!
+    private var plantTime1:Int!
+    private var plantTime2:Int!
+    private var plantTime3:Int!
+    private var plantTime4:Int!
+    private var plantTime5:Int!
+    private var plantTime6:Int!
+    private var GameBegin:Bool!
+    private var PlantAvailable1:Bool!
+    private var PlantAvailable2:Bool!
+    private var PlantAvailable3:Bool!
+    private var PlantAvailable4:Bool!
+    private var PlantAvailable5:Bool!
+    private var PlantAvailable6:Bool!
+    
+    /*
+    private var cdLabel1:SKLabelNode!
+    private var cdLabel2:SKLabelNode!
+    private var cdLabel3:SKLabelNode!
+    private var cdLabel4:SKLabelNode!
+    private var cdLabel5:SKLabelNode!
+    private var cdLabel6:SKLabelNode!
+    */
     /*
      override func didMove(to view: SKView) {
      
@@ -96,19 +140,52 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             for temp in (node){
                 switch (temp.name) {
                 case "Peashooter":
-                    selectNode = temp
+                    if GameBegin && PlantAvailable2{
+                        selectNode = temp
+                    }
+                    else {
+                        selectNode = nil
+                    }
                     break;
                 case "SunFlower":
-                    selectNode = temp
+                    if GameBegin && PlantAvailable1{
+                        selectNode = temp
+                    }
+                    else {
+                        selectNode = nil
+                    }
                     break;
                 case "SnowPea":
-                    selectNode = temp
+                    if GameBegin && PlantAvailable3{
+                        selectNode = temp
+                    }
+                    else {
+                        selectNode = nil
+                    }
                     break;
-                case "Threepeater":
-                    selectNode = temp
+                case "Threepeater" :
+                    if GameBegin && PlantAvailable4{
+                        selectNode = temp
+                    }
+                    else {
+                        selectNode = nil
+                    }
                     break;
                 case "CherryBomb":
-                    selectNode = temp
+                    if GameBegin && PlantAvailable5{
+                        selectNode = temp
+                    }
+                    else {
+                        selectNode = nil
+                    }
+                    break;
+                case "Squash" :
+                    if GameBegin && PlantAvailable6{
+                        selectNode = temp
+                    }
+                    else {
+                        selectNode = nil
+                    }
                     break;
                 case "Sun":
                     let sun = Sun()
@@ -124,8 +201,9 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                     let collectDone = SKAction.removeFromParent()
                     sun.run(SKAction.sequence([collectSun,collectDone]))
                     
-                    let intsunSum = (sunSum.text! as NSString).intValue + 25
-                    let stringsunSum = "\(intsunSum)"
+                    let intsunSum:Int = Int((sunSum.text! as NSString).intValue+25)
+                    let IntsunSum = sunStrengthen + intsunSum
+                    let stringsunSum = "\(IntsunSum)"
                     sunSum.text = stringsunSum
                     break;
                 default: break;
@@ -143,7 +221,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             switch (selectNode?.name){
             case "Peashooter":
                 let intsunSum = (sunSum.text! as NSString).intValue
-                if intsunSum < 100 {
+                if intsunSum < 100 || PlantAvailable2 == false{
                     selectNode = nil
                     break;
                 }
@@ -175,13 +253,18 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 plant.physicsBody?.contactTestBitMask = ZombieCategory
                 
                 addChild(plant)
+                
+                plantTime2 = 15
+                PlantAvailable2 = false
+                //plantTimer1 = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(plant1CD), userInfo: nil, repeats: true)
                 backgroundpositions?.backgroundPositions[Int(occupiedX.y)][Int(occupiedY.y)].setPeashooter(plantPosition:plant.position)
+                plantTimer2 = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(plant2CD), userInfo: nil, repeats: true)
                 selectNode = nil
                 break;
             case "SunFlower":
                 let intsunSum = (sunSum.text! as NSString).intValue
                 print("suncount",intsunSum)
-                if intsunSum < 50 {
+                if intsunSum < 50 || PlantAvailable1 == false{
                     selectNode = nil
                     break;
                 }
@@ -212,13 +295,19 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 plant.physicsBody?.contactTestBitMask = ZombieCategory
                 
                 addChild(plant)
+                
+                plantTime1 = 10
+                PlantAvailable1 = false
+                //plantTimer1 = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(plant1CD), userInfo: nil, repeats: true)
+                plantTimer1 = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(plant1CD), userInfo: nil, repeats: true)
+                
                 backgroundpositions?.backgroundPositions[Int(occupiedX.y)][Int(occupiedY.y)].setSunFlower(plantPosition:plant.position)
                 selectNode = nil
                 break;
             case "SnowPea":
                 let intsunSum = (sunSum.text! as NSString).intValue
                 print("suncount",intsunSum)
-                if intsunSum < 175 {
+                if intsunSum < 175 || PlantAvailable3 == false{
                     selectNode = nil
                     break;
                 }
@@ -249,13 +338,18 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 plant.physicsBody?.contactTestBitMask = ZombieCategory
                 
                 addChild(plant)
+                
+                plantTime3 = 20
+                PlantAvailable3 = false
+                //plantTimer1 = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(plant1CD), userInfo: nil, repeats: true)
+                plantTimer3 = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(plant3CD), userInfo: nil, repeats: true)
                 backgroundpositions?.backgroundPositions[Int(occupiedX.y)][Int(occupiedY.y)].setSnowPea(plantPosition:plant.position)
                 selectNode = nil
                 break;
             case "Threepeater":
                 let intsunSum = (sunSum.text! as NSString).intValue
                 print("suncount",intsunSum)
-                if intsunSum < 325 {
+                if intsunSum < 325 || PlantAvailable4 == false{
                     selectNode = nil
                     break;
                 }
@@ -286,13 +380,18 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 plant.physicsBody?.contactTestBitMask = ZombieCategory
                 
                 addChild(plant)
+                
+                plantTime4 = 25
+                PlantAvailable4 = false
+                //plantTimer1 = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(plant1CD), userInfo: nil, repeats: true)
+                plantTimer4 = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(plant4CD), userInfo: nil, repeats: true)
                 backgroundpositions?.backgroundPositions[Int(occupiedX.y)][Int(occupiedY.y)].setThreepeater(plantPosition:plant.position)
                 selectNode = nil
                 break;
             case "CherryBomb":
                 let intsunSum = (sunSum.text! as NSString).intValue
                 print("suncount",intsunSum)
-                if intsunSum < 150 {
+                if intsunSum < 150 || PlantAvailable5 == false{
                     selectNode = nil
                     break;
                 }
@@ -346,7 +445,53 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                         bomb.removeFromParent()
                     }
                 }
+                plantTime5 = 30
+                PlantAvailable5 = false
+                //plantTimer1 = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(plant1CD), userInfo: nil, repeats: true)
+                plantTimer5 = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(plant5CD), userInfo: nil, repeats: true)
+                selectNode = nil
+                break;
+            case "Squash":
+                let intsunSum = (sunSum.text! as NSString).intValue
+                if intsunSum < 50 || PlantAvailable6 == false{
+                    selectNode = nil
+                    break;
+                }
+                let plant = Squash()
+                sunSum.text = "\(intsunSum - 50)"
                 
+                print("hello Spuash")
+                plant.size = CGSize(width:71*size.width/1920*1.9,height:71*size.height/1080*1.9)
+                var location = t.location(in: self)
+                print(location)
+                var occupiedX:CGPoint
+                occupiedX = delectPositionX(position: location, height: plant.size.height)
+                var occupiedY:CGPoint
+                occupiedY = delectPositionY(position: location, height: plant.size.height)
+                location.x = occupiedX.x
+                location.y = occupiedY.x
+                if location.x == 0 || isOccupied(col: Int(occupiedX.y), row:Int(occupiedY.y) ){
+                    break;
+                }
+                plant.position = CGPoint(x:location.x,y:location.y)
+                print(plant.position)
+                plant.Action()
+                //Attack(haveZombie:true,position:plant.position)
+                //plant.Attack(haveZombie: true,position:plant.position,size:self.size)
+                
+                plant.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:plant.size.width/1.5,height:plant.size.height/2))
+                plant.physicsBody?.categoryBitMask = SquashCategory
+                plant.physicsBody?.collisionBitMask = 0
+                plant.physicsBody?.contactTestBitMask = ZombieCategory
+                
+                addChild(plant)
+                
+                plantTime6 = 40
+                PlantAvailable6 = false
+                //plantTimer1 = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(plant1CD), userInfo: nil, repeats: true)
+                plantTimer6 = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(plant6CD), userInfo: nil, repeats: true)
+                backgroundpositions?.backgroundPositions[Int(occupiedX.y)][Int(occupiedY.y)].setSquash(plantPosition:plant.position)
+                //backgroundpositions?.backgroundPositions[Int(occupiedX.y)][Int(occupiedY.y)].setPeashooter(plantPosition:plant.position)
                 selectNode = nil
                 break;
             default:break;
@@ -363,6 +508,31 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
         
+        /*
+        if plantTime1 == 0 {
+            PlantAvailable1 = true
+        }
+        
+        if plantTime2 == 0 {
+            PlantAvailable2 = true
+        }
+        
+        if plantTime3 == 0 {
+            PlantAvailable3 = true
+        }
+        
+        if plantTime4 == 0 {
+            PlantAvailable4 = true
+        }
+        
+        if plantTime5 == 0 {
+            PlantAvailable5 = true
+        }
+        
+        if plantTime6 == 0 {
+            PlantAvailable6 = true
+        }
+        */
         
         
         for i in 1...9{
@@ -397,7 +567,52 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                         temp.threeattackSpeed = temp.threeattackSpeed + 1
                     }
                     else if temp.plant == Plant.CherryBomb {
-                        
+                        /*
+                            if (contact.bodyA.categoryBitMask == BombCategory && contact.bodyB.categoryBitMask == ZombieCategory) || (contact.bodyB.categoryBitMask == BombCategory && contact.bodyA.categoryBitMask == ZombieCategory){
+                            print("zombie die")
+                            
+                            if contact.bodyA.categoryBitMask == ZombieCategory {
+                                /*
+                                 zombieunderIce(zombie: contact.bodyA.node!)
+                                 bulletDie(bullet: contact.bodyB.node!)
+                                 contact.bodyB.node?.removeFromParent()
+                                 */
+                                contact.bodyA.node!.removeFromParent()
+                            }
+                            else {
+                                /*
+                                 zombieunderIce(zombie: contact.bodyB.node!)
+                                 bulletDie(bullet: contact.bodyA.node!)
+                                 contact.bodyA.node?.removeFromParent()
+                                 */
+                                contact.bodyB.node!.removeFromParent()
+                            }
+                        }
+                        */
+                    }
+                    else if temp.plant == Plant.Squash {
+                        /*
+                            if (contact.bodyA.categoryBitMask == BombCategory && contact.bodyB.categoryBitMask == ZombieCategory) || (contact.bodyB.categoryBitMask == BombCategory && contact.bodyA.categoryBitMask == ZombieCategory){
+                            print("zombie die")
+                            
+                            if contact.bodyA.categoryBitMask == ZombieCategory {
+                                /*
+                                 zombieunderIce(zombie: contact.bodyA.node!)
+                                 bulletDie(bullet: contact.bodyB.node!)
+                                 contact.bodyB.node?.removeFromParent()
+                                 */
+                                contact.bodyA.node!.removeFromParent()
+                            }
+                            else {
+                                /*
+                                 zombieunderIce(zombie: contact.bodyB.node!)
+                                 bulletDie(bullet: contact.bodyA.node!)
+                                 contact.bodyA.node?.removeFromParent()
+                                 */
+                                contact.bodyB.node!.removeFromParent()
+                            }
+                        }
+                        */
                     }
                 }
             }
@@ -419,6 +634,24 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         physicsWorld.gravity = CGVector.zero
         
         /*
+        GameBegin = false
+        
+        PlantAvailable1 = true
+        PlantAvailable2 = true
+        PlantAvailable3 = true
+        PlantAvailable4 = true
+        PlantAvailable5 = true
+        PlantAvailable6 = true
+        
+        leftTime = 3
+        plantTime1 = 10
+        plantTime2 = 15
+        plantTime3 = 25
+        plantTime4 = 35
+        plantTime5 = 40
+        plantTime6 = 20
+        */
+        /*
         let sunSum = SKLabelNode(fontNamed: "OpenSans-Bold")
         sunSum.text = "0"
         sunSum.fontSize = 45
@@ -436,12 +669,80 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         //self.moveBackground(background: background,offset:background.size.width , timer:0.02)
         addChild(background)
         
+        
+        
+        gameInit()
+        
         /*
         let peashooter = Peashooter()
         peashooter.size = CGSize(width:71*size.width/1920*1.9,height:71*size.height/1080*1.9)
         peashooter.position = CGPoint(x:peashooter.size.width,y:peashooter.size.height)
         addChild(peashooter)
         */
+        /*
+        sleep(3)
+        let timer1 = SKLabelNode()
+        let timer2 = SKLabelNode()
+        let timer3 = SKLabelNode()
+        let Gamestart = SKLabelNode()
+        
+        timer1.text = "3"
+        timer2.text = "2"
+        timer3.text = "1"
+        Gamestart.text = "GO!"
+        
+        timer1.position = CGPoint(x:size.width/2,y:size.height/2)
+        timer2.position = CGPoint(x:size.width/2,y:size.height/2)
+        timer3.position = CGPoint(x:size.width/2,y:size.height/2)
+        Gamestart.position = CGPoint(x:size.width/2,y:size.height/2)
+        
+        timer1.fontColor = UIColor.red
+        timer2.fontColor = UIColor.red
+        timer3.fontColor = UIColor.red
+        Gamestart.fontColor = UIColor.red
+        
+        timer1.fontSize = CGFloat(100)
+        timer2.fontSize = CGFloat(100)
+        timer3.fontSize = CGFloat(100)
+        Gamestart.fontSize = CGFloat(100)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1)){
+            self.addChild(timer1)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1.5)){
+            timer1.removeFromParent()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(2)){
+            self.addChild(timer2)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(2.5)){
+            timer2.removeFromParent()
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(3)){
+            self.addChild(timer3)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(3.5)){
+            timer3.removeFromParent()
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(4)){
+            self.addChild(Gamestart)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(4.5)){
+            Gamestart.removeFromParent()
+            GameBegin = true
+        }
+        */
+        //Gametimer.fire()
+        //let countLabel = SKLabelNode()
+        countLabel.fontSize = 100
+        countLabel.fontColor = UIColor.red
+        countLabel.text = "\(leftTime-1)"
+        countLabel.position = CGPoint(x:size.width/2,y:size.height/2)
+        addChild(countLabel)
+        //let leftTime = 4
+        Gametimer = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(tickDown), userInfo: nil, repeats: true)
         
         backgroundpositions = BackgroundPositions(columns: 10, rows: 6)
         
@@ -487,7 +788,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         let toChoosePlant3 = SKSpriteNode(imageNamed: "SnowPea.png")
         let toChoosePlant4 = SKSpriteNode(imageNamed: "Threepeater.png")
         let toChoosePlant5 = SKSpriteNode(imageNamed: "CherryBomb.png")
-        //let toChoosePlant6 = SKSpriteNode(imageNamed: "Peashooter.png")
+        let toChoosePlant6 = SKSpriteNode(imageNamed: "Squash.png")
         
         //设置植物名称
         toChoosePlant1.name = "SunFlower"
@@ -495,7 +796,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         toChoosePlant3.name = "SnowPea"
         toChoosePlant4.name = "Threepeater"
         toChoosePlant5.name = "CherryBomb"
-        //toChoosePlant1.name = "Peashooter"
+        toChoosePlant6.name = "Squash"
         
         //设置植物大小
         toChoosePlant1.size = toChooseSize
@@ -503,7 +804,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         toChoosePlant3.size = toChooseSize
         toChoosePlant4.size = toChooseSize
         toChoosePlant5.size = toChooseSize
-        //toChoosePlant6.size = toChooseSize
+        toChoosePlant6.size = toChooseSize
         
         //设置植物位置
         toChoosePlant1.position = toChooseBackground1.position
@@ -511,7 +812,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         toChoosePlant3.position = toChooseBackground3.position
         toChoosePlant4.position = toChooseBackground4.position
         toChoosePlant5.position = toChooseBackground5.position
-        //toChoosePlant6.position = toChooseBackground6.position
+        toChoosePlant6.position = toChooseBackground6.position
         
         //添加植物
         addChild(toChoosePlant1)
@@ -519,7 +820,54 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         addChild(toChoosePlant3)
         addChild(toChoosePlant4)
         addChild(toChoosePlant5)
-        //addChild(toChoosePlant6)
+        addChild(toChoosePlant6)
+        
+        //设置植物CD
+        /*
+        cdLabel1.text = "1 "
+        cdLabel2.text = " 2"
+        cdLabel3.text = " 3"
+        cdLabel4.text = "4"
+        cdLabel5.text = " 5"
+        cdLabel6.text = " 5"
+        */
+        cdLabel1.position = CGPoint(x:toChoosePlant1.position.x,y:toChoosePlant1.position.y-10)
+        cdLabel2.position = CGPoint(x:toChoosePlant2.position.x,y:toChoosePlant2.position.y-10)
+        cdLabel3.position = CGPoint(x:toChoosePlant3.position.x,y:toChoosePlant3.position.y-10)
+        cdLabel4.position = CGPoint(x:toChoosePlant4.position.x,y:toChoosePlant4.position.y-10)
+        cdLabel5.position = CGPoint(x:toChoosePlant5.position.x,y:toChoosePlant5.position.y-10)
+        cdLabel6.position = CGPoint(x:toChoosePlant6.position.x,y:toChoosePlant6.position.y-10)
+        
+        
+        cdLabel1.fontSize = toChooseSize.width/2*1.5
+        cdLabel2.fontSize = toChooseSize.width/2*1.5
+        cdLabel3.fontSize = toChooseSize.width/2*1.5
+        cdLabel4.fontSize = toChooseSize.width/2*1.5
+        cdLabel5.fontSize = toChooseSize.width/2*1.5
+        cdLabel6.fontSize = toChooseSize.width/2*1.5
+        /*
+        cdLabel1.fontColor = UIColor.white
+        cdLabel2.fontColor = UIColor.white
+        cdLabel3.fontColor = UIColor.white
+        cdLabel4.fontColor = UIColor.white
+        cdLabel5.fontColor = UIColor.white
+        cdLabel6.fontColor = UIColor.white
+        */
+        addChild(cdLabel1)
+        addChild(cdLabel2)
+        addChild(cdLabel3)
+        addChild(cdLabel4)
+        addChild(cdLabel5)
+        addChild(cdLabel6)
+ 
+        /*
+        Gametimer = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(plant1CD), userInfo: nil, repeats: true)
+        Gametimer = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(plant2CD), userInfo: nil, repeats: true)
+        Gametimer = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(plant3CD), userInfo: nil, repeats: true)
+        Gametimer = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(plant4CD), userInfo: nil, repeats: true)
+        Gametimer = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(plant5CD), userInfo: nil, repeats: true)
+        Gametimer = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(plant6CD), userInfo: nil, repeats: true)
+        */
         
         //设置阳光消耗
         let toChooseSuncost1 = SKSpriteNode(imageNamed: "SunBack.png")
@@ -669,13 +1017,30 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         sunBack.position = CGPoint(x:size.width/4,y:size.height-17)
         addChild(sunBack)
         
-        sunSum.text = "500"
+        sunSum.text = "\(5000+startSunAdd)"
         sunSum.fontSize = 34
         sunSum.fontColor = UIColor.black
         sunSum.position = CGPoint(x:size.width/4+15,y:size.height-30)
         addChild(sunSum)
         
-            
+        /*
+        let SUNFACTORY = SunFactory()
+        run(SKAction.repeatForever(
+            SKAction.sequence([
+                SKAction.run(SUNFACTORY.sunFactory),
+                SKAction.wait(forDuration:5.0)
+                ])
+        ))
+        */
+        
+        run(SKAction.repeatForever(
+            SKAction.sequence([
+                SKAction.run(sunFactory),
+                SKAction.wait(forDuration:15.0)
+                ])
+        ))
+        
+        
         run(SKAction.repeatForever(
             SKAction.sequence([
                 SKAction.run(addMonster),
@@ -1016,7 +1381,38 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     
     }
     
+    func SpuashAttack(plant:SKNode,zombie:SKNode) {
+        let middlePosition = CGPoint(x:CGFloat(plant.position.x/2+zombie.position.x/2),y:CGFloat(plant.position.y+116))
+        let move = SKAction.move(to: middlePosition, duration: 0.8)
+        //print(middlePosition)
+        let move2 = SKAction.move(to: CGPoint(x:zombie.position.x,y:plant.position.y),duration: 1.0)
+        //print(zombie.position)
+        plant.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:0,height:0))
+        plant.run(SKAction.sequence([move,move2]))
+        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(2.0)){
+            plant.removeFromParent()
+        }
+        //plant.run(move)
+        /*
+        let attack = SquashAttack()
+        attack.position = CGPoint(x:CGFloat(plant.position.x/2+zombie.position.x/2),y:CGFloat(plant.position.y+20))
+        attack.Action()
+        addChild(attack)
+        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(2)){
+            attack.removeFromParent()
+        }
+        */
+        let positionX = Int(delectPositionX(position: plant.position, height: plantHeight!).y)
+        let positionY = Int(delectPositionY(position: plant.position, height: plantHeight!).y)
+        print(positionX,positionY)
+        backgroundpositions?.backgroundPositions[positionX][positionY].removerPlant()
+        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1.8)){
+            zombie.removeFromParent()
+        }
+    }
+    
     func didBegin(_ contact: SKPhysicsContact) {
+        //Plant Attack Zombie
         if (contact.bodyA.categoryBitMask == BulletCategory && contact.bodyB.categoryBitMask == ZombieCategory) || (contact.bodyB.categoryBitMask == BulletCategory && contact.bodyA.categoryBitMask == ZombieCategory){
             print("zombie die")
             
@@ -1042,7 +1438,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 contact.bodyA.node?.removeFromParent()
             }
         }
-        
+        //Zombie eat Plant
         if (contact.bodyA.categoryBitMask == PlantCategory && contact.bodyB.categoryBitMask == ZombieCategory) || (contact.bodyB.categoryBitMask == PlantCategory && contact.bodyA.categoryBitMask == ZombieCategory){
             print("plant die")
             
@@ -1057,7 +1453,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
  
             
         }
-        
+        //SnowPea and Zombie
         if (contact.bodyA.categoryBitMask == IcebulletCategory && contact.bodyB.categoryBitMask == ZombieCategory) || (contact.bodyB.categoryBitMask == IcebulletCategory && contact.bodyA.categoryBitMask == ZombieCategory){
             print("zombie die")
             
@@ -1072,7 +1468,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 contact.bodyA.node?.removeFromParent()
             }
         }
-        
+        //cherryBomb and zombie
         if (contact.bodyA.categoryBitMask == BombCategory && contact.bodyB.categoryBitMask == ZombieCategory) || (contact.bodyB.categoryBitMask == BombCategory && contact.bodyA.categoryBitMask == ZombieCategory){
             print("zombie die")
             
@@ -1091,6 +1487,29 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 contact.bodyA.node?.removeFromParent()
                 */
                 contact.bodyB.node!.removeFromParent()
+            }
+        }
+        
+        if (contact.bodyA.categoryBitMask == SquashCategory && contact.bodyB.categoryBitMask == ZombieCategory) || (contact.bodyB.categoryBitMask == SquashCategory && contact.bodyA.categoryBitMask == ZombieCategory){
+            print("zombie die")
+            
+            if contact.bodyA.categoryBitMask == ZombieCategory {
+                /*
+                 zombieunderIce(zombie: contact.bodyA.node!)
+                 bulletDie(bullet: contact.bodyB.node!)
+                 contact.bodyB.node?.removeFromParent()
+                 */
+                SpuashAttack(plant: contact.bodyB.node!, zombie: contact.bodyA.node!)
+                //contact.bodyA.node!.removeFromParent()
+            }
+            else {
+                /*
+                 zombieunderIce(zombie: contact.bodyB.node!)
+                 bulletDie(bullet: contact.bodyA.node!)
+                 contact.bodyA.node?.removeFromParent()
+                 */
+                SpuashAttack(plant: contact.bodyA.node!, zombie: contact.bodyB.node!)
+                //contact.bodyB.node!.removeFromParent()
             }
         }
         
@@ -1282,6 +1701,248 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             }
         }
         return false
+    }
+    
+    func randomSun()->CGPoint{
+        switch(arc4random()%4) {
+        case 0:
+            return CGPoint(x:size.width*3/12,y:size.height*5/4)
+        //break;
+        case 1:
+            return CGPoint(x:size.width*4/12,y:size.height*5/4)
+        //break;
+        case 2:
+            return CGPoint(x:size.width*5/12,y:size.height*5/4)
+        //break;
+        case 3:
+            return CGPoint(x:size.width*6/12,y:size.height*5/4)
+        //break;
+        default:
+            return CGPoint(x:size.width*7/12,y:size.height*5/4)
+            //break;
+        }
+    }
+    func sunFactory(){
+        if GameBegin {
+        let sun = Sun()
+        sun.position = randomSun()
+        sun.size = CGSize(width:71*size.width/1920*1.9,height:71*size.height/1080*1.9)
+        
+        sun.Action()
+        addChild(sun)
+        sun.name = "Sun"
+        
+        let sunMove = SKAction.move(to: CGPoint(x:sun.position.x,y:sun.size.height), duration: 5)
+        //let sunMove2 = SKAction.move(to: CGPoint(x:position.x,y:position.y-20), duration: 1.2)
+        
+        sun.run(sunMove)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(8)){
+            sun.removeFromParent()
+        }
+        }
+    }
+    
+    func gameInit(){
+        
+        GameBegin = false
+        
+        PlantAvailable1 = true
+        PlantAvailable2 = true
+        PlantAvailable3 = true
+        PlantAvailable4 = true
+        PlantAvailable5 = true
+        PlantAvailable6 = true
+        
+        leftTime = 4
+        plantTime1 = 10
+        plantTime2 = 15
+        plantTime3 = 20
+        plantTime4 = 25
+        plantTime5 = 30
+        plantTime6 = 40
+        
+        cdLabel1.text = ""
+        cdLabel2.text = ""
+        cdLabel3.text = ""
+        cdLabel4.text = ""
+        cdLabel5.text = ""
+        cdLabel6.text = ""
+        /*
+        cdLabel1.position = toChoosePlant1.position
+        cdLabel2.position = toChoosePlant2.position
+        cdLabel3.position = toChoosePlant3.position
+        cdLabel4.position = toChoosePlant4.position
+        cdLabel5.position = toChoosePlant5.position
+        cdLabel6.position = toChoosePlant6.position
+        
+        
+        cdLabel1.fontSize = toChooseSize.width/2
+        cdLabel2.fontSize = toChooseSize.width/2
+        cdLabel3.fontSize = toChooseSize.width/2
+        cdLabel4.fontSize = toChooseSize.width/2
+        cdLabel5.fontSize = toChooseSize.width/2
+        cdLabel6.fontSize = toChooseSize.width/2
+        */
+        cdLabel1.fontColor = UIColor.black
+        cdLabel2.fontColor = UIColor.black
+        cdLabel3.fontColor = UIColor.black
+        cdLabel4.fontColor = UIColor.black
+        cdLabel5.fontColor = UIColor.black
+        cdLabel6.fontColor = UIColor.black
+        /*
+        addChild(cdLabel1)
+        addChild(cdLabel2)
+        addChild(cdLabel3)
+        addChild(cdLabel4)
+        addChild(cdLabel5)
+        addChild(cdLabel6)
+        */
+    }
+    @objc func plant1CD(){
+        plantTime1 = plantTime1 - 1
+        cdLabel1.text = "\(plantTime1-1)"
+        if plantTime1<=1 {
+            plantTimer1.invalidate()
+            PlantAvailable1 = true
+            cdLabel1.text = ""
+            plantTime1 = 10
+        }
+    }
+    
+    
+    @objc func plant2CD(){
+        plantTime2 = plantTime2 - 1
+        cdLabel2.text = "\(plantTime2-1)"
+        if plantTime2<=1 {
+            plantTimer2.invalidate()
+            PlantAvailable2 = true
+            cdLabel2.text = ""
+            plantTime2 = 15
+        }
+    }
+    
+    @objc func plant3CD(){
+        plantTime3 = plantTime3 - 1
+        cdLabel3.text = "\(plantTime3-1)"
+        if plantTime3<=1 {
+            plantTimer3.invalidate()
+            PlantAvailable3 = true
+            cdLabel3.text = ""
+            plantTime3 = 20
+        }
+    }
+    
+    @objc func plant4CD(){
+        plantTime4 = plantTime4 - 1
+        cdLabel4.text = "\(plantTime4-1)"
+        if plantTime4<=1 {
+            plantTimer4.invalidate()
+            PlantAvailable4 = true
+            cdLabel4.text = ""
+            plantTime4 = 25
+        }
+    }
+    
+    @objc func plant5CD(){
+        plantTime5 = plantTime5 - 1
+        cdLabel5.text = "\(plantTime5-1)"
+        if plantTime5<=1 {
+            plantTimer5.invalidate()
+            PlantAvailable5 = true
+            cdLabel5.text = ""
+            plantTime5 = 30
+        }
+    }
+    
+    @objc func plant6CD(){
+        plantTime6 = plantTime6 - 1
+        cdLabel6.text = "\(plantTime6-1)"
+        if plantTime6<=1 {
+            plantTimer6.invalidate()
+            PlantAvailable6 = true
+            cdLabel6.text = ""
+            plantTime6 = 40
+        }
+    }
+    /*
+    @objc func plant2CD(){
+        plantTime2 = plantTime2 - 1
+        cdLabel2.text = "\(plantTime2)"
+        if plantTime2<=0 {
+            Gametimer.invalidate()
+            PlantAvailable2 = true
+            countLabe2.text = ""
+        }
+        PlantAvailable2 = false
+    }
+    
+    @objc func plant3CD(){
+        plantTime3 = plantTime3 - 1
+        cdLabel3.text = "\(plantTime3)"
+        if plantTime3<=0 {
+            Gametimer.invalidate()
+            PlantAvailable3 = true
+            countLabe3.text = ""
+        }
+        PlantAvailable3 = false
+    }
+    
+    @objc func plant4CD(){
+        plantTime4 = plantTime4 - 1
+        cdLabel4.text = "\(plantTime4)"
+        if plantTime4<=0 {
+            Gametimer.invalidate()
+            PlantAvailable4 = true
+            countLabe4.text = ""
+        }
+        else {
+            PlantAvailable4 = false
+        }
+    }
+    
+    @objc func plant1CD(){
+        plantTime1 = plantTime1 - 1
+        cdLabel1.text = "\(plantTime1)"
+        if plantTime1<=0 {
+            Gametimer.invalidate()
+            PlantAvailable1 = true
+            countLabel.text = ""
+        }
+        PlantAvailable1 = false
+    }
+    
+    @objc func plant1CD(){
+        plantTime1 = plantTime1 - 1
+        cdLabel1.text = "\(plantTime1)"
+        if plantTime1<=0 {
+            Gametimer.invalidate()
+            PlantAvailable1 = true
+            countLabel.text = ""
+        }
+        PlantAvailable1 = false
+    }
+    */
+    
+    @objc func tickDown(){
+        leftTime = leftTime - 1
+        countLabel.text = "\(leftTime-1)"
+        if leftTime==1 {
+            //Gametimer.invalidate()
+            //GameBegin = true
+            //countLabel.text = "GO!"
+            //addChild(<#T##node: SKNode##SKNode#>)
+            //countLabel.removeFromParent()
+            countLabel.text = "GO!"
+        }
+        if leftTime<=0 {
+            Gametimer.invalidate()
+            GameBegin = true
+            //countLabel.text = "GO!"
+            //addChild(<#T##node: SKNode##SKNode#>)
+            countLabel.removeFromParent()
+        }
+        
     }
 }
 

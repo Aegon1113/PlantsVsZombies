@@ -68,6 +68,12 @@ class BackgroundPosition{
         plant = Plant.CherryBomb
         self.plantPosition = plantPosition
     }
+    
+    func setSquash(plantPosition:CGPoint){
+        occupied = true
+        plant = Plant.Squash
+        self.plantPosition = plantPosition
+    }
 
     func removerPlant(){
         occupied = false

@@ -8,8 +8,8 @@
 
 import UIKit
 
-var sunStrengthen = 0
-var startSunAdd = 0
+var sunStrengthen:Int = 0
+var startSunAdd:Int = 0
 var shovelReturn = 0.0
 //var hasCart = false
 var money = 0
