@@ -35,19 +35,6 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wikibackground" translatesAutoresizingMaskIntoConstraints="NO" id="Tpv-km-X4Q">
                                 <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MSu-fu-nb5">
-                                <rect key="frame" x="182" y="172" width="31" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="植物"/>
-                                <connections>
-                                    <segue destination="MEy-nM-Y37" kind="show" id="Yro-iD-QBI"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0M8-A1-d0q">
-                                <rect key="frame" x="357" y="172" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wso-rD-rN1">
                                 <rect key="frame" x="530" y="284" width="105" height="75"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="52"/>
@@ -56,13 +43,53 @@
                                     <segue destination="VAn-Xv-g6W" kind="unwind" unwindAction="homepageUnwindSegueWithUnwindSegue:" id="osp-RQ-LTS"/>
                                 </connections>
                             </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="I3u-wn-hN6">
+                                <rect key="frame" x="205.5" y="115.5" width="256" height="144"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="C54-HZ-rrH">
+                                        <rect key="frame" x="0.0" y="0.0" width="256" height="108"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SunFlower" translatesAutoresizingMaskIntoConstraints="NO" id="wUD-GM-FE8">
+                                                <rect key="frame" x="0.0" y="0.0" width="124" height="108"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bucketforwiki" translatesAutoresizingMaskIntoConstraints="NO" id="0Gp-rU-eNU">
+                                                <rect key="frame" x="132" y="0.0" width="124" height="108"/>
+                                            </imageView>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="APY-Yu-tRH">
+                                        <rect key="frame" x="0.0" y="108" width="256" height="36"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MSu-fu-nb5">
+                                                <rect key="frame" x="0.0" y="0.0" width="124" height="36"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <state key="normal" title="植物">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <segue destination="Buv-Ef-qhR" kind="show" id="FoX-0f-Uzg"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0M8-A1-d0q">
+                                                <rect key="frame" x="132" y="0.0" width="124" height="36"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <state key="normal" title="僵尸">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="a31-y7-NiM" firstAttribute="bottom" secondItem="wso-rD-rN1" secondAttribute="bottom" constant="16" id="1Ej-9z-Xue"/>
+                            <constraint firstItem="I3u-wn-hN6" firstAttribute="centerY" secondItem="Jr5-Kx-RxV" secondAttribute="centerY" id="AOf-Gb-EwR"/>
                             <constraint firstItem="a31-y7-NiM" firstAttribute="trailing" secondItem="Tpv-km-X4Q" secondAttribute="trailing" id="JUG-Gk-Tue"/>
                             <constraint firstItem="Tpv-km-X4Q" firstAttribute="top" secondItem="a31-y7-NiM" secondAttribute="top" id="VTO-0g-7XL"/>
                             <constraint firstItem="Tpv-km-X4Q" firstAttribute="leading" secondItem="a31-y7-NiM" secondAttribute="leading" id="aIF-d5-FDo"/>
+                            <constraint firstItem="I3u-wn-hN6" firstAttribute="centerX" secondItem="Jr5-Kx-RxV" secondAttribute="centerX" id="mYq-o6-rwg"/>
                             <constraint firstItem="a31-y7-NiM" firstAttribute="trailing" secondItem="wso-rD-rN1" secondAttribute="trailing" constant="32" id="sOG-Td-ahX"/>
                             <constraint firstItem="a31-y7-NiM" firstAttribute="bottom" secondItem="Tpv-km-X4Q" secondAttribute="bottom" id="xJd-II-bxm"/>
                         </constraints>
@@ -72,26 +99,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e92-YL-cOl" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="VAn-Xv-g6W" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="268" y="360"/>
+            <point key="canvasLocation" x="206" y="372"/>
         </scene>
         <!--Plant Table View Controller-->
         <scene sceneID="Geg-tg-q27">
             <objects>
                 <tableViewController id="Buv-Ef-qhR" customClass="PlantTableViewController" customModule="PlantsVsZombies" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="300" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="b4r-gq-UUY">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="500" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="b4r-gq-UUY">
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="W63-Or-NQy">
+                            <rect key="frame" x="0.0" y="528" width="667" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="返回"/>
+                            <connections>
+                                <segue destination="4kE-dg-EJx" kind="unwind" unwindAction="wikiChoiceUnwindSegueWithUnwindSegue:" id="yfb-dV-Ns4"/>
+                            </connections>
+                        </button>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CardCell" rowHeight="300" id="Myg-mD-tLY" customClass="CardCell" customModule="PlantsVsZombies" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="667" height="300"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CardCell" rowHeight="500" id="Myg-mD-tLY" customClass="CardCell" customModule="PlantsVsZombies" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="667" height="500"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Myg-mD-tLY" id="yuv-Dm-EAT">
-                                    <rect key="frame" x="0.0" y="0.0" width="667" height="299.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="667" height="499.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="F99-iO-Pyv" userLabel="Card Container">
-                                            <rect key="frame" x="30" y="21" width="607" height="258"/>
+                                            <rect key="frame" x="30" y="21" width="607" height="458"/>
                                         </imageView>
                                         <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Ts-V1-v7R">
                                             <rect key="frame" x="20" y="11" width="627" height="80"/>
@@ -103,14 +138,14 @@
                                                         <rect key="frame" x="20" y="11" width="59.5" height="58.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6mK-z7-6jJ">
-                                                                <rect key="frame" x="0.0" y="0.0" width="42" height="20.5"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="59.5" height="30"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dxb-2g-qvn">
-                                                                <rect key="frame" x="0.0" y="28.5" width="59.5" height="30"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                                <rect key="frame" x="0.0" y="38" width="42" height="20.5"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -128,7 +163,7 @@
                                             <blurEffect style="light"/>
                                         </visualEffectView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yVV-QI-0F7">
-                                            <rect key="frame" x="585" y="248.5" width="42" height="20.5"/>
+                                            <rect key="frame" x="585" y="448.5" width="42" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -146,6 +181,7 @@
                                         <constraint firstItem="F99-iO-Pyv" firstAttribute="top" secondItem="yuv-Dm-EAT" secondAttribute="topMargin" constant="10" id="zdI-54-LcS"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" red="1" green="0.71863023079999999" blue="0.076561508939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="plantCost" destination="yVV-QI-0F7" id="2jf-uX-wh6"/>
                                     <outlet property="plantImage" destination="F99-iO-Pyv" id="1Pw-M2-AXo"/>
@@ -161,6 +197,7 @@
                     </tableView>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TMU-34-XXn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="4kE-dg-EJx" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1173" y="-478"/>
         </scene>
@@ -227,7 +264,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v8O-RR-EGe" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Mgl-LE-3Hc" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1153" y="454"/>
+            <point key="canvasLocation" x="1819" y="441"/>
+        </scene>
+        <!--Zombie Table View Controller-->
+        <scene sceneID="tOs-Li-yHO">
+            <objects>
+                <tableViewController id="Mi4-iQ-Cen" userLabel="Zombie Table View Controller" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="sWB-As-e4M">
+                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="mLj-KY-ssf">
+                                <rect key="frame" x="0.0" y="28" width="667" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mLj-KY-ssf" id="3FG-Lz-ZYp">
+                                    <rect key="frame" x="0.0" y="0.0" width="667" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Mi4-iQ-Cen" id="Wom-Dm-mrY"/>
+                            <outlet property="delegate" destination="Mi4-iQ-Cen" id="yDK-QT-hOg"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wBo-FS-xfl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1173" y="634"/>
         </scene>
         <!--DaveShop-->
         <scene sceneID="Aze-wZ-Mbg">
@@ -261,7 +326,6 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QKi-k8-uL8">
                                         <rect key="frame" x="30" y="0.0" width="10.5" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -323,21 +387,27 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vmv-Tt-kQz">
                                                 <rect key="frame" x="0.0" y="0.0" width="128.5" height="30"/>
-                                                <state key="normal" title="4000"/>
+                                                <state key="normal" title="4000">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="strengthenSun:" destination="wJP-EA-v3r" eventType="touchUpInside" id="lFu-f1-q8l"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aS5-Uf-wWb">
                                                 <rect key="frame" x="128.5" y="0.0" width="128" height="30"/>
-                                                <state key="normal" title="4000"/>
+                                                <state key="normal" title="4000">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="startWithMoreSun:" destination="wJP-EA-v3r" eventType="touchUpInside" id="EML-N1-dEe"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YQq-vC-F6c">
                                                 <rect key="frame" x="256.5" y="0.0" width="128.5" height="30"/>
-                                                <state key="normal" title="4000"/>
+                                                <state key="normal" title="4000">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="returnMoreSun:" destination="wJP-EA-v3r" eventType="touchUpInside" id="l2y-9g-ifH"/>
                                                 </connections>
@@ -449,8 +519,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Bucketforwiki" width="124.5" height="108"/>
         <image name="Daveshop" width="2160" height="1080"/>
         <image name="LoadingPage" width="480" height="320"/>
+        <image name="SunFlower" width="54.75" height="55.5"/>
         <image name="shopItem1" width="54.75" height="55.5"/>
         <image name="shopItem2" width="58.5" height="58.5"/>
         <image name="shopItem3" width="34" height="76"/>

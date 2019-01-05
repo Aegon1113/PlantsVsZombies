@@ -10,10 +10,9 @@ import UIKit
 
 class CardCell: UITableViewCell {
 
-    @IBOutlet weak var plantIntro: UILabel!
     @IBOutlet weak var plantName: UILabel!
+    @IBOutlet weak var plantIntro: UILabel!
     @IBOutlet weak var plantImage: UIImageView!
-    
     @IBOutlet weak var plantCost: UILabel!
     
     

@@ -14,9 +14,10 @@ class PlantTableViewController: UITableViewController {
     var plantNames = ["向日葵","豌豆射手","冰冻射手","三枪射手","樱桃炸弹","窝瓜"]
     var sunCost = ["50","100","175","325","150","50"]
     var introduction = ["生产阳光","普通伤害的豌豆","双倍伤害的豌豆","进攻三行的豌豆","对四周造成巨大伤害","对单体造成巨大伤害"]
-    var plantImages = ["SunFlower","Peashooter","SnowPea","Threepeater","CherryBomb","Squash"]
+    var plantImages = ["sunflowerwiki","Peashooterwiki","SnowPeawiki","Threepeaterwiki","CherryBombwiki","Squashwiki"]
     override func viewDidLoad() {
         super.viewDidLoad()
+        //self.tableView.transform = CGAffineTransform(rotationAngle: CGFloat(-Double.pi/2))
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -27,25 +28,26 @@ class PlantTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    /*override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 0
-    }
+    }*/
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
+        print(plantNames.count)
         return plantNames.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let id = String(describing: CardCell.self)
+        //let id = String(describing: CardCell.self)
         let cell = tableView.dequeueReusableCell(withIdentifier: "CardCell",for:indexPath) as! CardCell
-        cell.plantIntro.text = "666"//introduction[indexPath.row]
-        cell.plantName.text = "666"//plantNames[indexPath.row]
-        cell.plantCost.text = "666"//sunCost[indexPath.row]
+        cell.plantIntro.text = introduction[indexPath.row]
+        cell.plantName.text = plantNames[indexPath.row]
+        cell.plantCost.text = sunCost[indexPath.row]
         cell.plantImage.image = UIImage(named: plantImages[indexPath.row])
-
+        //cell.contentView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi/2))
         return cell
     }
     
