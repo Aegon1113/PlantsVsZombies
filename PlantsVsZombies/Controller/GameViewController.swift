@@ -61,6 +61,9 @@ class GameViewController: UIViewController {
             return .all
         }
     }
+    @IBAction func exitGame(_ sender: UIButton) {
+        exit(0)
+    }
     
     override var prefersStatusBarHidden: Bool {
         return true
