@@ -8,12 +8,27 @@
 
 import UIKit
 import SpriteKit
-
+var sunStrengthen:Int = 0
+var startSunAdd:Int = 0
+var shovelReturn = 0.0
+//var hasCart = false
+var money = 0
+let userDefault = UserDefaults.standard
+var sunLevel = 0
+var startLevel = 0
+var shovelLevel = 0
+//let user = UserDefaults()
 class HomePageViewController: UIViewController {
 
     override func viewDidLoad() {
     // Do any additional setup after loading the view.
-        
+        sunLevel = userDefault.integer(forKey: "sunLevel")
+        startLevel = userDefault.integer(forKey: "startLevel")
+        shovelLevel = userDefault.integer(forKey: "shovelLevel")
+        sunStrengthen = userDefault.integer(forKey: "sunStrengthen")
+        startSunAdd = userDefault.integer(forKey: "startSunAdd")
+        shovelReturn = userDefault.double(forKey: "shovelReturn")
+        money = userDefault.integer(forKey: "money")
        
     }
     

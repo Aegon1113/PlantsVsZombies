@@ -24,15 +24,25 @@ let ZombieCategory:UInt32 = 1<<3
 let IcebulletCategory:UInt32 = 1<<4
 let BombCategory:UInt32 = 1<<5
 let SquashCategory:UInt32 = 1<<6
+let ShovelCategory:UInt32 = 1<<7
+let GameOverCategory:UInt32 = 1<<8
 let sunSum = SKLabelNode(fontNamed: "OpenSans-Bold")
 let countLabel = SKLabelNode(fontNamed: "OpenSans-Bold")
+let moneyLable = SKLabelNode(fontNamed: "OpenSans-Bold")
+//Sun Cost
 let cdLabel1 = SKLabelNode(fontNamed: "OpenSans-Bold")
 let cdLabel2 = SKLabelNode(fontNamed: "OpenSans-Bold")
 let cdLabel3 = SKLabelNode(fontNamed: "OpenSans-Bold")
 let cdLabel4 = SKLabelNode(fontNamed: "OpenSans-Bold")
 let cdLabel5 = SKLabelNode(fontNamed: "OpenSans-Bold")
 let cdLabel6 = SKLabelNode(fontNamed: "OpenSans-Bold")
+//游戏倒计时
 var Gametimer:Timer!
+//游戏结束时间
+var GameEndTimer:Timer!
+//游戏时间
+var GameBeginTime:Double!
+//plant CD
 var plantTimer1:Timer!
 var plantTimer2:Timer!
 var plantTimer3:Timer!
@@ -206,6 +216,14 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                     let stringsunSum = "\(IntsunSum)"
                     sunSum.text = stringsunSum
                     break;
+                case "Shovel":
+                    if GameBegin{
+                        selectNode = temp
+                    }
+                    else{
+                        selectNode = nil
+                    }
+                    break;
                 default: break;
                 }
             }
@@ -221,7 +239,13 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             switch (selectNode?.name){
             case "Peashooter":
                 let intsunSum = (sunSum.text! as NSString).intValue
-                if intsunSum < 100 || PlantAvailable2 == false{
+                if intsunSum < 100 || PlantAvailable2 == false {
+                    selectNode = nil
+                    break;
+                }
+                
+                var location = t.location(in: self)
+                if location.x < 3*size.width/13 || location.x > 12*size.width/13{
                     selectNode = nil
                     break;
                 }
@@ -230,7 +254,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 
                 print("hello Peashooter")
                 plant.size = CGSize(width:71*size.width/1920*1.9,height:71*size.height/1080*1.9)
-                var location = t.location(in: self)
+                
                 print(location)
                 var occupiedX:CGPoint
                 occupiedX = delectPositionX(position: location, height: plant.size.height)
@@ -254,7 +278,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 
                 addChild(plant)
                 
-                plantTime2 = 15
+                plantTime2 = 8
                 PlantAvailable2 = false
                 //plantTimer1 = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(plant1CD), userInfo: nil, repeats: true)
                 backgroundpositions?.backgroundPositions[Int(occupiedX.y)][Int(occupiedY.y)].setPeashooter(plantPosition:plant.position)
@@ -268,11 +292,16 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                     selectNode = nil
                     break;
                 }
+                var location = t.location(in: self)
+                if location.x < 3*size.width/13 || location.x > 12*size.width/13{
+                    selectNode = nil
+                    break;
+                }
                 let plant = SunFlower()
                 sunSum.text = "\(intsunSum-50)"
                 print("hello SunFlower")
                 plant.size = CGSize(width:71*size.width/1920*1.9,height:71*size.height/1080*1.9)
-                var location = t.location(in: self)
+                //var location = t.location(in: self)
                 print(location)
                 var occupiedX:CGPoint
                 occupiedX = delectPositionX(position: location, height: plant.size.height)
@@ -296,7 +325,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 
                 addChild(plant)
                 
-                plantTime1 = 10
+                plantTime1 = 8
                 PlantAvailable1 = false
                 //plantTimer1 = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(plant1CD), userInfo: nil, repeats: true)
                 plantTimer1 = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(plant1CD), userInfo: nil, repeats: true)
@@ -311,11 +340,16 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                     selectNode = nil
                     break;
                 }
+                var location = t.location(in: self)
+                if location.x < 3*size.width/13 || location.x > 12*size.width/13{
+                    selectNode = nil
+                    break;
+                }
                 let plant = SnowPea()
                 sunSum.text = "\(intsunSum-175)"
                 print("hello SnowPea")
                 plant.size = CGSize(width:71*size.width/1920*1.9,height:71*size.height/1080*1.9)
-                var location = t.location(in: self)
+                //var location = t.location(in: self)
                 print(location)
                 var occupiedX:CGPoint
                 occupiedX = delectPositionX(position: location, height: plant.size.height)
@@ -339,7 +373,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 
                 addChild(plant)
                 
-                plantTime3 = 20
+                plantTime3 = 8
                 PlantAvailable3 = false
                 //plantTimer1 = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(plant1CD), userInfo: nil, repeats: true)
                 plantTimer3 = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(plant3CD), userInfo: nil, repeats: true)
@@ -349,7 +383,12 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             case "Threepeater":
                 let intsunSum = (sunSum.text! as NSString).intValue
                 print("suncount",intsunSum)
-                if intsunSum < 325 || PlantAvailable4 == false{
+                if intsunSum < 325 || PlantAvailable4 == false {
+                    selectNode = nil
+                    break;
+                }
+                var location = t.location(in: self)
+                if location.x < 3*size.width/13 || location.x > 12*size.width/13{
                     selectNode = nil
                     break;
                 }
@@ -357,7 +396,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 sunSum.text = "\(intsunSum-325)"
                 print("hello Threepeater")
                 plant.size = CGSize(width:71*size.width/1920*1.9,height:71*size.height/1080*1.9)
-                var location = t.location(in: self)
+                //var location = t.location(in: self)
                 print(location)
                 var occupiedX:CGPoint
                 occupiedX = delectPositionX(position: location, height: plant.size.height)
@@ -381,7 +420,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 
                 addChild(plant)
                 
-                plantTime4 = 25
+                plantTime4 = 8
                 PlantAvailable4 = false
                 //plantTimer1 = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(plant1CD), userInfo: nil, repeats: true)
                 plantTimer4 = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(plant4CD), userInfo: nil, repeats: true)
@@ -395,11 +434,16 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                     selectNode = nil
                     break;
                 }
+                var location = t.location(in: self)
+                if location.x < 3*size.width/13 || location.x > 12*size.width/13{
+                    selectNode = nil
+                    break;
+                }
                 let plant = CherryBomb()
                 sunSum.text = "\(intsunSum-150)"
                 print("hello CherryBomb")
                 plant.size = CGSize(width:71*size.width/1920*1.9,height:71*size.height/1080*1.9)
-                var location = t.location(in: self)
+                //var location = t.location(in: self)
                 print(location)
                 var occupiedX:CGPoint
                 occupiedX = delectPositionX(position: location, height: plant.size.height)
@@ -429,7 +473,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 bomb.position = plant.position
                 bomb.size = plant.size
                 
-                bomb.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:plant.size.width*3,height:plant.size.height*3))
+                bomb.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:plant.size.width*3.3,height:plant.size.height*3.3))
                 bomb.physicsBody?.categoryBitMask = BombCategory
                 bomb.physicsBody?.collisionBitMask = 0
                 bomb.physicsBody?.contactTestBitMask = ZombieCategory
@@ -457,12 +501,17 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                     selectNode = nil
                     break;
                 }
+                var location = t.location(in: self)
+                if location.x < 3*size.width/13 || location.x > 12*size.width/13{
+                    selectNode = nil
+                    break;
+                }
                 let plant = Squash()
                 sunSum.text = "\(intsunSum - 50)"
                 
                 print("hello Spuash")
                 plant.size = CGSize(width:71*size.width/1920*1.9,height:71*size.height/1080*1.9)
-                var location = t.location(in: self)
+                //var location = t.location(in: self)
                 print(location)
                 var occupiedX:CGPoint
                 occupiedX = delectPositionX(position: location, height: plant.size.height)
@@ -492,6 +541,67 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 plantTimer6 = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(plant6CD), userInfo: nil, repeats: true)
                 backgroundpositions?.backgroundPositions[Int(occupiedX.y)][Int(occupiedY.y)].setSquash(plantPosition:plant.position)
                 //backgroundpositions?.backgroundPositions[Int(occupiedX.y)][Int(occupiedY.y)].setPeashooter(plantPosition:plant.position)
+                selectNode = nil
+                break;
+            case "Shovel":
+                let location = t.location(in: self)
+                if location.x < 3*size.width/13 || location.x > 12*size.width/13{
+                    selectNode = nil
+                    break;
+                }
+                var occupiedX:CGPoint
+                occupiedX = delectPositionX(position: location, height: plantHeight!)
+                var occupiedY:CGPoint
+                occupiedY = delectPositionY(position: location, height: plantHeight!)
+                var sunReview = 0
+                if backgroundpositions?.backgroundPositions[Int(occupiedX.y)][Int(occupiedY.y)].plant == Plant.SunFlower{
+                    sunReview = 50
+                }
+                else if backgroundpositions?.backgroundPositions[Int(occupiedX.y)][Int(occupiedY.y)].plant == Plant.Peashooter{
+                    sunReview = 100
+                }
+                else if backgroundpositions?.backgroundPositions[Int(occupiedX.y)][Int(occupiedY.y)].plant == Plant.SnowPea{
+                    sunReview = 175
+                }
+                else if backgroundpositions?.backgroundPositions[Int(occupiedX.y)][Int(occupiedY.y)].plant == Plant.Threepeater{
+                    sunReview = 325
+                }
+                else if backgroundpositions?.backgroundPositions[Int(occupiedX.y)][Int(occupiedY.y)].plant == Plant.CherryBomb{
+                    sunReview = 150
+                }
+                else if backgroundpositions?.backgroundPositions[Int(occupiedX.y)][Int(occupiedY.y)].plant == Plant.Squash{
+                    sunReview = 50
+                }
+                if sunReview != 0
+                {
+                    let Shovel = SKSpriteNode(imageNamed:"Shovel.png")
+                    //Shovel.position = location
+                    Shovel.position = CGPoint(x:occupiedX.x,y:occupiedY.x)
+                    print(Shovel.position)
+                    Shovel.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:71/2,height:71/2))
+                    Shovel.physicsBody?.categoryBitMask = ZombieCategory
+                    //Shovel.physicsBody?.categoryBitMask = shovelCategory
+                    Shovel.name = "Shovel"
+                    Shovel.physicsBody?.collisionBitMask = 0
+                    //monster.physicsBody?.contactTestBitMask = BulletCategory
+                    addChild(Shovel)
+                
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(0.3)){
+                        Shovel.removeFromParent()
+                    }
+ 
+                    //Shovel.removeFromParent()
+                }
+                print("shovelReturn",shovelReturn)
+                print(sunReview)
+                let intSunSum1:Int = Int(shovelReturn*Double(sunReview))
+                print(intSunSum1)
+                let intSunSum2:Int = Int((sunSum.text! as NSString).intValue)
+                let intsunSum:Int = intSunSum1 + intSunSum2
+                backgroundpositions?.backgroundPositions[Int(occupiedX.y)][Int(occupiedY.y)].removerPlant()
+                print("remove",Int(occupiedX.y),Int(occupiedY.y))
+                sunSum.text = "\(intsunSum)"
                 selectNode = nil
                 break;
             default:break;
@@ -533,8 +643,9 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             PlantAvailable6 = true
         }
         */
-        
-        
+        moneyLable.text = "\(money)"
+        userDefault.set(money,forKey:"money")
+        userDefault.integer(forKey: "money")
         for i in 1...9{
             for j in 1...5{
                 if let temp = backgroundpositions?.backgroundPositions[i][j] {
@@ -633,6 +744,10 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         physicsWorld.gravity = CGVector.zero
         
+        readInfo()
+        print(sunLevel)
+        print(startLevel)
+        print(shovelLevel)
         /*
         GameBegin = false
         
@@ -667,9 +782,16 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         background.position = CGPoint(x: background.size.width*0.5,y:size.height*0.5)
         print(background.size.width,background.size.height)
         //self.moveBackground(background: background,offset:background.size.width , timer:0.02)
+        //background.name = "background"
         addChild(background)
-        
-        
+        /*
+        background.anchorPoint = CGPoint(x:0.1,y:0.5)
+        background.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:size.width/10,height:size.height))
+        background.physicsBody?.categoryBitMask = PlantCategory
+        background.physicsBody?.collisionBitMask = 0
+        background.physicsBody?.contactTestBitMask = ZombieCategory
+        */
+        //addChild(background)
         
         gameInit()
         
@@ -783,6 +905,13 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         addChild(toChooseBackground6)
         
         
+        toChooseBackground1.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:size.width/10,height:size.height*2))
+        toChooseBackground1.name = "background"
+        toChooseBackground1.physicsBody?.categoryBitMask = PlantCategory
+        toChooseBackground1.physicsBody?.collisionBitMask = 0
+        toChooseBackground1.physicsBody?.contactTestBitMask = ZombieCategory
+        
+        
         let toChoosePlant1 = SKSpriteNode(imageNamed: "SunFlower.png")
         let toChoosePlant2 = SKSpriteNode(imageNamed: "Peashooter.png")
         let toChoosePlant3 = SKSpriteNode(imageNamed: "SnowPea.png")
@@ -797,6 +926,14 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         toChoosePlant4.name = "Threepeater"
         toChoosePlant5.name = "CherryBomb"
         toChoosePlant6.name = "Squash"
+        
+        /*
+        addPZombie()
+        addPZombie()
+        addPZombie()
+        addPZombie()
+        addPZombie()
+        */
         
         //设置植物大小
         toChoosePlant1.size = toChooseSize
@@ -1017,12 +1154,33 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         sunBack.position = CGPoint(x:size.width/4,y:size.height-17)
         addChild(sunBack)
         
-        sunSum.text = "\(5000+startSunAdd)"
+        sunSum.text = "\(50+startSunAdd)"
         sunSum.fontSize = 34
         sunSum.fontColor = UIColor.black
         sunSum.position = CGPoint(x:size.width/4+15,y:size.height-30)
         addChild(sunSum)
         
+        
+        let shovelBack = SKSpriteNode(imageNamed: "ShovelBack.png")
+        shovelBack.size = sunBack.size
+        shovelBack.position = CGPoint(x:size.width/2,y:size.height-17)
+        addChild(shovelBack)
+        
+        let shovel = SKSpriteNode(imageNamed:"Shovel.png")
+        shovel.position = shovelBack.position
+        shovel.name = "Shovel"
+        addChild(shovel)
+        
+        let moneyBack = SKSpriteNode(imageNamed: "trophy.png")
+        moneyBack.size = CGSize(width:sunBack.size.height,height:sunBack.size.height)
+        moneyBack.position = CGPoint(x:size.width*2/3,y:size.height-17)
+        addChild(moneyBack)
+        
+        moneyLable.text = "\(money)"
+        moneyLable.fontSize = 34
+        moneyLable.fontColor = UIColor.black
+        moneyLable.position = CGPoint(x:moneyBack.position.x+70,y:moneyBack.position.y-17)
+        addChild(moneyLable)
         /*
         let SUNFACTORY = SunFactory()
         run(SKAction.repeatForever(
@@ -1040,14 +1198,15 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 ])
         ))
         
-        
+        GameEndTimer = Timer.scheduledTimer(timeInterval: TimeInterval(1), target: self, selector: #selector(zombieFactory), userInfo: nil, repeats: true)
+        /*
         run(SKAction.repeatForever(
             SKAction.sequence([
                 SKAction.run(addMonster),
                 SKAction.wait(forDuration:5.0)
                 ])
         ))
-        
+        */
     }
     
     func random()-> CGFloat{
@@ -1088,7 +1247,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             //monster.zPosition = 20
             //monster.size = CGSize(width:166,height:144)
             
-            monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.height/2,height:monster.size.height))
+            monster.anchorPoint = CGPoint(x:0.55,y:0.5)
+            monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.width*0.3,height:monster.size.height*0.3))
             monster.physicsBody?.categoryBitMask = ZombieCategory
             monster.physicsBody?.collisionBitMask = 0
             monster.physicsBody?.contactTestBitMask = BulletCategory
@@ -1129,7 +1289,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             monster.position = CGPoint(x:size.width+monster.size.width/2,y:actualY)
             //monster.zPosition = 20
             //monster.size = CGSize(width:166,height:144)
-            monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.height/2,height:monster.size.height))
+            monster.anchorPoint = CGPoint(x:0.65,y:0.5)
+            monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.width*0.3,height:monster.size.height*0.3))
             monster.physicsBody?.categoryBitMask = ZombieCategory
             monster.physicsBody?.collisionBitMask = 0
             monster.physicsBody?.contactTestBitMask = BulletCategory
@@ -1232,7 +1393,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             return CGPoint(x:getPostionY(height:height,num:4),y:5)
         }
         else {
-            return CGPoint(x:0,y:1)
+            return CGPoint(x:getPostionY(height:height,num:4),y:5)
         }
     }
     
@@ -1287,11 +1448,45 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
      */
     
     func zombieUnderattack(zombie:SKNode) {
-        if zombie.name == "Zombie##########" {
+        print(zombie.name!)
+        //if zombie.name!
+        /*
+        if zombie.name == "Zombie######" {
             zombieDie(zombie:zombie)
         }
-        else if zombie.name == "ConeheadZombie####################" {
+        else if zombie.name == "ConeheadZombie############" {
             zombieDie(zombie:zombie)
+        }
+        else if zombie.name == "BucketheadZombie####################"{
+            zombieDie(zombie:zombie)
+        }
+        else if zombie.name == "FlagZombie######" {
+            zombieDie(zombie:zombie)
+        }
+        else if zombie.name == "PoleVaultingZombieWalk##########" {
+            zombieDie(zombie:zombie)
+        }
+        else if zombie.name == "Shovel"{
+            
+        }
+        */
+        if zombie.name!.hasPrefix("Zombie######") {
+            zombieDie(zombie:zombie)
+        }
+        else if zombie.name!.hasPrefix("ConeheadZombie############") {
+            zombieDie(zombie:zombie)
+        }
+        else if zombie.name!.hasPrefix("BucketheadZombie####################"){
+            zombieDie(zombie:zombie)
+        }
+        else if zombie.name!.hasPrefix("FlagZombie######") {
+            zombieDie(zombie:zombie)
+        }
+        else if zombie.name!.hasPrefix("PoleVaultingZombieWalk##########") {
+            zombieDie(zombie:zombie)
+        }
+        else if zombie.name == "Shovel"{
+            
         }
         else {
             let string: String = "#"
@@ -1300,11 +1495,41 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     }
     
     func zombieunderIce(zombie:SKNode) {
-        if zombie.name == "Zombie##########" {
+        print(zombie.name!)
+        /*
+        if zombie.name == "Zombie######" || zombie.name == "Zombie#######" {
             zombieDie(zombie:zombie)
         }
-        else if zombie.name == "ConeheadZombie####################" {
+        else if zombie.name == "ConeheadZombie############" || zombie.name == "ConeheadZombie#############" {
             zombieDie(zombie:zombie)
+        }
+        else if zombie.name == "BucketheadZombie####################" || zombie.name == "BucketheadZombie#####################" {
+            zombieDie(zombie:zombie)
+        }
+        else if zombie.name == "FlagZombie######" || zombie.name == "FlagZombie#######" {
+            zombieDie(zombie:zombie)
+        }
+        else if zombie.name == "PoleVaultingZombieWalk##########" || zombie.name == "PoleVaultingZombieWalk###########" {
+            zombieDie(zombie:zombie)
+        }
+        */
+        if zombie.name!.hasPrefix("Zombie######") {
+            zombieDie(zombie:zombie)
+        }
+        else if zombie.name!.hasPrefix("ConeheadZombie############") {
+            zombieDie(zombie:zombie)
+        }
+        else if zombie.name!.hasPrefix("BucketheadZombie####################"){
+            zombieDie(zombie:zombie)
+        }
+        else if zombie.name!.hasPrefix("FlagZombie######") {
+            zombieDie(zombie:zombie)
+        }
+        else if zombie.name!.hasPrefix("PoleVaultingZombieWalk##########") {
+            zombieDie(zombie:zombie)
+        }
+        else if zombie.name == "Shovel"{
+            
         }
         else {
             let string: String = "##"
@@ -1366,11 +1591,14 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     }
     
     func zombieDie(zombie:SKNode){
+        if zombie.name != "Shovel"{
         let positionY = Int(delectPositionY(position: zombie.position, height: zombieHeight!).y)
         for i in 1...9{
             backgroundpositions?.backgroundPositions[i][positionY].zombieNum -= 1
         }
         zombie.removeFromParent()
+            money = money+10
+        }
     }
     
     func plantDie(plant:SKNode){
@@ -1382,6 +1610,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
     }
     
     func SpuashAttack(plant:SKNode,zombie:SKNode) {
+        if zombie.name != "Shovel" {
         let middlePosition = CGPoint(x:CGFloat(plant.position.x/2+zombie.position.x/2),y:CGFloat(plant.position.y+116))
         let move = SKAction.move(to: middlePosition, duration: 0.8)
         //print(middlePosition)
@@ -1406,13 +1635,20 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         let positionY = Int(delectPositionY(position: plant.position, height: plantHeight!).y)
         print(positionX,positionY)
         backgroundpositions?.backgroundPositions[positionX][positionY].removerPlant()
+        let positionY2 = Int(delectPositionY(position: zombie.position, height: zombieHeight!).y)
+            for i in 1...9{
+                backgroundpositions?.backgroundPositions[i][positionY2].zombieNum -= 1
+            }
         DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1.8)){
             zombie.removeFromParent()
+            money = money+10
+        }
         }
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
         //Plant Attack Zombie
+        print("contact",contact)
         if (contact.bodyA.categoryBitMask == BulletCategory && contact.bodyB.categoryBitMask == ZombieCategory) || (contact.bodyB.categoryBitMask == BulletCategory && contact.bodyA.categoryBitMask == ZombieCategory){
             print("zombie die")
             
@@ -1427,22 +1663,36 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             contact.bodyA.node?.removeFromParent()
             contact.bodyB.node?.removeFromParent()
             */
-            if contact.bodyA.categoryBitMask == ZombieCategory {
-                zombieUnderattack(zombie: contact.bodyA.node!)
-                bulletDie(bullet: contact.bodyB.node!)
-                contact.bodyB.node?.removeFromParent()
-            }
-            else {
-                zombieUnderattack(zombie: contact.bodyB.node!)
-                bulletDie(bullet: contact.bodyA.node!)
-                contact.bodyA.node?.removeFromParent()
+            if contact.bodyA.node!.name != "Shovel" {
+                if contact.bodyA.categoryBitMask == ZombieCategory {
+                    zombieUnderattack(zombie: contact.bodyA.node!)
+                    bulletDie(bullet: contact.bodyB.node!)
+                    contact.bodyB.node?.removeFromParent()
+                }
+                else {
+                    zombieUnderattack(zombie: contact.bodyB.node!)
+                    bulletDie(bullet: contact.bodyA.node!)
+                    contact.bodyA.node?.removeFromParent()
+                }
             }
         }
         //Zombie eat Plant
         if (contact.bodyA.categoryBitMask == PlantCategory && contact.bodyB.categoryBitMask == ZombieCategory) || (contact.bodyB.categoryBitMask == PlantCategory && contact.bodyA.categoryBitMask == ZombieCategory){
             print("plant die")
-            
-            if contact.bodyA.categoryBitMask == PlantCategory {
+            if contact.bodyA.node!.name == "background" || contact.bodyB.node!.name == "background" {
+                let warning = SKLabelNode(fontNamed: "OpenSans-Bold")
+                
+                warning.text = "僵尸吃掉了你的脑子"
+                warning.fontSize = 60
+                warning.fontColor = UIColor.red
+                warning.position = CGPoint(x:size.width/2,y:size.height/2)
+                
+                addChild(warning)
+                DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(5)){
+                    exit(0)
+                }
+            }
+            else if contact.bodyA.categoryBitMask == PlantCategory {
                 plantDie(plant:contact.bodyA.node!)
                 contact.bodyA.node?.removeFromParent()
             }
@@ -1453,6 +1703,22 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
  
             
         }
+        /*
+        if (contact.bodyA.categoryBitMask == PlantCategory && contact.bodyB.categoryBitMask == shovelCategory) || (contact.bodyB.categoryBitMask == PlantCategory && contact.bodyA.categoryBitMask == shovelCategory){
+            print("plant die")
+            
+            if contact.bodyA.categoryBitMask == PlantCategory {
+                plantDie(plant:contact.bodyA.node!)
+                contact.bodyA.node?.removeFromParent()
+            }
+            else {
+                plantDie(plant:contact.bodyB.node!)
+                contact.bodyB.node?.removeFromParent()
+            }
+            
+            
+        }
+        */
         //SnowPea and Zombie
         if (contact.bodyA.categoryBitMask == IcebulletCategory && contact.bodyB.categoryBitMask == ZombieCategory) || (contact.bodyB.categoryBitMask == IcebulletCategory && contact.bodyA.categoryBitMask == ZombieCategory){
             print("zombie die")
@@ -1468,6 +1734,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 contact.bodyA.node?.removeFromParent()
             }
         }
+        
+        
         //cherryBomb and zombie
         if (contact.bodyA.categoryBitMask == BombCategory && contact.bodyB.categoryBitMask == ZombieCategory) || (contact.bodyB.categoryBitMask == BombCategory && contact.bodyA.categoryBitMask == ZombieCategory){
             print("zombie die")
@@ -1478,7 +1746,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 bulletDie(bullet: contact.bodyB.node!)
                 contact.bodyB.node?.removeFromParent()
                 */
-                contact.bodyA.node!.removeFromParent()
+                //contact.bodyA.node!.removeFromParent()
+                zombieDie(zombie: contact.bodyA.node!)
             }
             else {
                 /*
@@ -1486,7 +1755,21 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
                 bulletDie(bullet: contact.bodyA.node!)
                 contact.bodyA.node?.removeFromParent()
                 */
-                contact.bodyB.node!.removeFromParent()
+                //contact.bodyB.node!.removeFromParent()
+                zombieDie(zombie: contact.bodyB.node!)
+            }
+        }
+        
+        if (contact.bodyA.categoryBitMask == PlantCategory && contact.bodyB.categoryBitMask == ShovelCategory) || (contact.bodyB.categoryBitMask == PlantCategory && contact.bodyA.categoryBitMask == ShovelCategory){
+            print("plant die")
+            
+            if contact.bodyA.categoryBitMask == PlantCategory {
+                plantDie(plant:contact.bodyA.node!)
+                contact.bodyA.node?.removeFromParent()
+            }
+            else {
+                plantDie(plant:contact.bodyB.node!)
+                contact.bodyB.node?.removeFromParent()
             }
         }
         
@@ -1755,10 +2038,11 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         PlantAvailable6 = true
         
         leftTime = 4
-        plantTime1 = 10
-        plantTime2 = 15
-        plantTime3 = 20
-        plantTime4 = 25
+        GameBeginTime = 0
+        plantTime1 = 8
+        plantTime2 = 8
+        plantTime3 = 8
+        plantTime4 = 8
         plantTime5 = 30
         plantTime6 = 40
         
@@ -1806,7 +2090,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             plantTimer1.invalidate()
             PlantAvailable1 = true
             cdLabel1.text = ""
-            plantTime1 = 10
+            plantTime1 = 8
         }
     }
     
@@ -1818,7 +2102,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             plantTimer2.invalidate()
             PlantAvailable2 = true
             cdLabel2.text = ""
-            plantTime2 = 15
+            plantTime2 = 8
         }
     }
     
@@ -1829,7 +2113,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             plantTimer3.invalidate()
             PlantAvailable3 = true
             cdLabel3.text = ""
-            plantTime3 = 20
+            plantTime3 = 8
         }
     }
     
@@ -1840,7 +2124,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
             plantTimer4.invalidate()
             PlantAvailable4 = true
             cdLabel4.text = ""
-            plantTime4 = 25
+            plantTime4 = 8
         }
     }
     
@@ -1944,6 +2228,996 @@ class GameScene: SKScene,SKPhysicsContactDelegate {
         }
         
     }
+    
+    func readInfo(){
+        sunLevel = userDefault.integer(forKey: "sunLevel")
+        startLevel = userDefault.integer(forKey: "startLevel")
+        shovelLevel = userDefault.integer(forKey: "shovelLevel")
+        /*
+        sunStrengthen = userDefault.integer(forKey: "sunStrengthen")
+        startSunAdd = userDefault.integer(forKey: "startSunAdd")
+        shovelReturn = userDefault.double(forKey: "shovelReturn")
+        */
+        money = userDefault.integer(forKey: "money")
+        //let sunBuff = [5, 10, 15]
+        //let startBuff = [25, 50, 75]
+        //let shovelBuff = [0.2, 0.5, 1.0]
+        let sunBuff = [0, 5, 10, 15]
+        let startBuff = [0, 25, 50, 75]
+        let shovelBuff = [0, 0.2, 0.5, 1.0]
+        sunStrengthen = sunBuff[sunLevel]
+        startSunAdd = startBuff[startLevel]
+        shovelReturn = shovelBuff[shovelLevel]
+        print(sunStrengthen)
+        print(startSunAdd)
+        print(shovelReturn)
+ 
+    }
+    
+    @objc func zombieFactory() {
+        if GameBegin{
+            GameBeginTime += 0.5
+            if GameBeginTime == 12 {
+                let monster = Zombie()
+                monster.size = CGSize(width:166*size.width/1920*1.9,height:144*size.height/1080*1.9)
+                //let actualY = random(min:monster.size.height,max:size.height-monster.size.height)
+                let random = getRandom(height:monster.size.height)
+                let actualY = random.x
+                print(actualY)
+                monster.position = CGPoint(x:size.width+monster.size.width/2,y:actualY)
+                //monster.zPosition = 20
+                //monster.size = CGSize(width:166,height:144)
+                
+                //monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.height/2,height:monster.size.height))
+                //monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.height/2,height:monster.size.height/2))
+                monster.anchorPoint = CGPoint(x:0.55,y:0.5)
+                monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.width*0.3,height:monster.size.height*0.3))
+                monster.physicsBody?.categoryBitMask = ZombieCategory
+                monster.physicsBody?.collisionBitMask = 0
+                monster.physicsBody?.contactTestBitMask = BulletCategory
+                monster.Action()
+                addChild(monster)
+                monster.name = "Zombie"
+                /*
+                 for i in 1...9{
+                 backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+                 }
+                 */
+                let actionMove = SKAction.move(to: CGPoint(x:-monster.size.width/5,y:actualY), duration: 60)
+                let actionMoveDone = SKAction.removeFromParent()
+                monster.run(SKAction.sequence([actionMove,actionMoveDone]))
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(3)){
+                    
+                    for i in 1...9{
+                        self.backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+                    }
+                }
+            }
+            if GameBeginTime == 22 {
+                let monster = Zombie()
+                monster.size = CGSize(width:166*size.width/1920*1.9,height:144*size.height/1080*1.9)
+                //let actualY = random(min:monster.size.height,max:size.height-monster.size.height)
+                let random = getRandom(height:monster.size.height)
+                let actualY = random.x
+                print(actualY)
+                monster.position = CGPoint(x:size.width+monster.size.width/2,y:actualY)
+                //monster.zPosition = 20
+                //monster.size = CGSize(width:166,height:144)
+                
+                //monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.height/2,height:monster.size.height))
+                monster.anchorPoint = CGPoint(x:0.55,y:0.5)
+                
+                monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.width*0.3,height:monster.size.height*0.3))
+                monster.physicsBody?.categoryBitMask = ZombieCategory
+                monster.physicsBody?.collisionBitMask = 0
+                monster.physicsBody?.contactTestBitMask = BulletCategory
+                monster.Action()
+                addChild(monster)
+                monster.name = "Zombie"
+                /*
+                 for i in 1...9{
+                 backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+                 }
+                 */
+                let actionMove = SKAction.move(to: CGPoint(x:-monster.size.width/5,y:actualY), duration: 60)
+                let actionMoveDone = SKAction.removeFromParent()
+                monster.run(SKAction.sequence([actionMove,actionMoveDone]))
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(3)){
+                    
+                    for i in 1...9{
+                        self.backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+                    }
+                }
+            }
+            if GameBeginTime == 31 {
+                let monster = Zombie()
+                monster.size = CGSize(width:166*size.width/1920*1.9,height:144*size.height/1080*1.9)
+                //let actualY = random(min:monster.size.height,max:size.height-monster.size.height)
+                let random = getRandom(height:monster.size.height)
+                let actualY = random.x
+                print(actualY)
+                monster.position = CGPoint(x:size.width+monster.size.width/2,y:actualY)
+                //monster.zPosition = 20
+                //monster.size = CGSize(width:166,height:144)
+                
+                //monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.height/2,height:monster.size.height))
+                monster.anchorPoint = CGPoint(x:0.55,y:0.5)
+                monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.width*0.3,height:monster.size.height*0.3))
+                monster.physicsBody?.categoryBitMask = ZombieCategory
+                monster.physicsBody?.collisionBitMask = 0
+                monster.physicsBody?.contactTestBitMask = BulletCategory
+                monster.Action()
+                addChild(monster)
+                monster.name = "Zombie"
+                /*
+                 for i in 1...9{
+                 backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+                 }
+                 */
+                let actionMove = SKAction.move(to: CGPoint(x:-monster.size.width/5,y:actualY), duration: 60)
+                let actionMoveDone = SKAction.removeFromParent()
+                monster.run(SKAction.sequence([actionMove,actionMoveDone]))
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(3)){
+                    
+                    for i in 1...9{
+                        self.backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+                    }
+                }
+            }
+            
+            if GameBeginTime == 42 {
+                let monster = Zombie()
+                monster.size = CGSize(width:166*size.width/1920*1.9,height:144*size.height/1080*1.9)
+                //let actualY = random(min:monster.size.height,max:size.height-monster.size.height)
+                let random = getRandom(height:monster.size.height)
+                let actualY = random.x
+                print(actualY)
+                monster.position = CGPoint(x:size.width+monster.size.width/2,y:actualY)
+                //monster.zPosition = 20
+                //monster.size = CGSize(width:166,height:144)
+                
+                //monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.height/2,height:monster.size.height))
+                monster.anchorPoint = CGPoint(x:0.55,y:0.5)
+                monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.width*0.3,height:monster.size.height*0.3))
+                monster.physicsBody?.categoryBitMask = ZombieCategory
+                monster.physicsBody?.collisionBitMask = 0
+                monster.physicsBody?.contactTestBitMask = BulletCategory
+                monster.Action()
+                addChild(monster)
+                monster.name = "Zombie"
+                /*
+                 for i in 1...9{
+                 backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+                 }
+                 */
+                let actionMove = SKAction.move(to: CGPoint(x:-monster.size.width/5,y:actualY), duration: 60)
+                let actionMoveDone = SKAction.removeFromParent()
+                monster.run(SKAction.sequence([actionMove,actionMoveDone]))
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(3)){
+                    
+                    for i in 1...9{
+                        self.backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+                    }
+                }
+            }
+            if GameBeginTime > 40 && Int(GameBeginTime)%10 == 0{
+                addMonster()
+            }
+            //if GameBeginTime > 40
+            if GameBeginTime == 40 {
+                let monster = Zombie()
+                monster.size = CGSize(width:166*size.width/1920*1.9,height:144*size.height/1080*1.9)
+                //let actualY = random(min:monster.size.height,max:size.height-monster.size.height)
+                let random = getRandom(height:monster.size.height)
+                let actualY = random.x
+                print(actualY)
+                monster.position = CGPoint(x:size.width+monster.size.width/2,y:actualY)
+                //monster.zPosition = 20
+                //monster.size = CGSize(width:166,height:144)
+                
+                //monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.height/2,height:monster.size.height))
+                monster.anchorPoint = CGPoint(x:0.55,y:0.5)
+                monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.width*0.3,height:monster.size.height*0.3))
+                monster.physicsBody?.categoryBitMask = ZombieCategory
+                monster.physicsBody?.collisionBitMask = 0
+                monster.physicsBody?.contactTestBitMask = BulletCategory
+                monster.Action()
+                addChild(monster)
+                monster.name = "Zombie"
+                /*
+                 for i in 1...9{
+                 backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+                 }
+                 */
+                let actionMove = SKAction.move(to: CGPoint(x:-monster.size.width/5,y:actualY), duration: 60)
+                let actionMoveDone = SKAction.removeFromParent()
+                monster.run(SKAction.sequence([actionMove,actionMoveDone]))
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(3)){
+                    
+                    for i in 1...9{
+                        self.backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+                    }
+                }
+            }
+            /*
+            if GameBeginTime == 45 {
+                //add ConheadZombie
+                switch (arc4random()%2){
+                case 0:
+                    let monster = Zombie()
+                    monster.size = CGSize(width:166*size.width/1920*1.9,height:144*size.height/1080*1.9)
+                    //let actualY = random(min:monster.size.height,max:size.height-monster.size.height)
+                    let random = getRandom(height:monster.size.height)
+                    let actualY = random.x
+                    print(actualY)
+                    monster.position = CGPoint(x:size.width+monster.size.width/2,y:actualY)
+                    //monster.zPosition = 20
+                    //monster.size = CGSize(width:166,height:144)
+                    
+                    monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.height/2,height:monster.size.height))
+                    monster.physicsBody?.categoryBitMask = ZombieCategory
+                    monster.physicsBody?.collisionBitMask = 0
+                    monster.physicsBody?.contactTestBitMask = BulletCategory
+                    monster.Action()
+                    addChild(monster)
+                    monster.name = "Zombie"
+                    /*
+                     for i in 1...9{
+                     backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+                     }
+                     */
+                    let actionMove = SKAction.move(to: CGPoint(x:-monster.size.width/5,y:actualY), duration: 60)
+                    let actionMoveDone = SKAction.removeFromParent()
+                    monster.run(SKAction.sequence([actionMove,actionMoveDone]))
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(3)){
+                        
+                        for i in 1...9{
+                            self.backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+                        }
+                    }
+                    /*
+                     if monster.position.x < size.width {
+                     for i in 1...9{
+                     backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+                     }
+                     }
+                     */
+                    break;
+                    
+                case 1:
+                    let monster = ConeheadZombie()
+                    monster.size = CGSize(width:166*size.width/1920*1.9,height:144*size.height/1080*1.9)
+                    //let actualY = random(min:monster.size.height,max:size.height-monster.size.height)
+                    let random = getRandom(height:monster.size.height)
+                    let actualY = random.x
+                    print(actualY)
+                    monster.position = CGPoint(x:size.width+monster.size.width/2,y:actualY)
+                    //monster.zPosition = 20
+                    //monster.size = CGSize(width:166,height:144)
+                    monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.height/2,height:monster.size.height))
+                    monster.physicsBody?.categoryBitMask = ZombieCategory
+                    monster.physicsBody?.collisionBitMask = 0
+                    monster.physicsBody?.contactTestBitMask = BulletCategory
+                    monster.Action()
+                    addChild(monster)
+                    monster.name = "ConeheadZombie"
+                    
+                    
+                    let actionMove = SKAction.move(to: CGPoint(x:-monster.size.width/5,y:actualY), duration: 60)
+                    let actionMoveDone = SKAction.removeFromParent()
+                    monster.run(SKAction.sequence([actionMove,actionMoveDone]))
+                    /*
+                     let time: TimeInterval = 3.0
+                     let delay = dispatch_time(dispatch_time_t(DispatchTime.now()), Int64(time * Double(NSEC_PER_SEC)))
+                     */
+                    DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(3)){
+                        
+                        for i in 1...9{
+                            self.backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+                        }
+                    }
+                    
+                    /*
+                     if monster.position.x < size.width {
+                     for i in 1...9{
+                     backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+                     }
+                     }
+                     */
+                    break;
+                    
+                default:break;
+                }
+            }
+            */
+            if GameBeginTime == 45 {
+                //add ConheadZombie
+                let monster = Zombie()
+                monster.size = CGSize(width:166*size.width/1920*1.9,height:144*size.height/1080*1.9)
+                //let actualY = random(min:monster.size.height,max:size.height-monster.size.height)
+                let random = getRandom(height:monster.size.height)
+                let actualY = random.x
+                print(actualY)
+                monster.position = CGPoint(x:size.width+monster.size.width/2,y:actualY)
+                //monster.zPosition = 20
+                //monster.size = CGSize(width:166,height:144)
+                
+                //monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.height/2,height:monster.size.height))
+                monster.anchorPoint = CGPoint(x:0.55,y:0.5)
+                monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.width*0.3,height:monster.size.height*0.3))
+                monster.physicsBody?.categoryBitMask = ZombieCategory
+                monster.physicsBody?.collisionBitMask = 0
+                monster.physicsBody?.contactTestBitMask = BulletCategory
+                monster.Action()
+                addChild(monster)
+                monster.name = "Zombie"
+                /*
+                 for i in 1...9{
+                 backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+                 }
+                 */
+                let actionMove = SKAction.move(to: CGPoint(x:-monster.size.width/5,y:actualY), duration: 60)
+                let actionMoveDone = SKAction.removeFromParent()
+                monster.run(SKAction.sequence([actionMove,actionMoveDone]))
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(3)){
+                    
+                    for i in 1...9{
+                        self.backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+                    }
+                }
+            }
+            if GameBeginTime == 55 {
+                //add ConheadZombie
+                switch (arc4random()%2){
+                case 0:
+                    let monster = Zombie()
+                    monster.size = CGSize(width:166*size.width/1920*1.9,height:144*size.height/1080*1.9)
+                    //let actualY = random(min:monster.size.height,max:size.height-monster.size.height)
+                    let random = getRandom(height:monster.size.height)
+                    let actualY = random.x
+                    print(actualY)
+                    monster.position = CGPoint(x:size.width+monster.size.width/2,y:actualY)
+                    //monster.zPosition = 20
+                    //monster.size = CGSize(width:166,height:144)
+                    
+                    //monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.height/2,height:monster.size.height))
+                    monster.anchorPoint = CGPoint(x:0.55,y:0.5)
+                    monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.width*0.3,height:monster.size.height*0.3))
+                    monster.physicsBody?.categoryBitMask = ZombieCategory
+                    monster.physicsBody?.collisionBitMask = 0
+                    monster.physicsBody?.contactTestBitMask = BulletCategory
+                    monster.Action()
+                    addChild(monster)
+                    monster.name = "Zombie"
+                    /*
+                     for i in 1...9{
+                     backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+                     }
+                     */
+                    let actionMove = SKAction.move(to: CGPoint(x:-monster.size.width/5,y:actualY), duration: 60)
+                    let actionMoveDone = SKAction.removeFromParent()
+                    monster.run(SKAction.sequence([actionMove,actionMoveDone]))
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(3)){
+                        
+                        for i in 1...9{
+                            self.backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+                        }
+                    }
+                    /*
+                     if monster.position.x < size.width {
+                     for i in 1...9{
+                     backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+                     }
+                     }
+                     */
+                    break;
+                    
+                case 1:
+                    let monster = ConeheadZombie()
+                    monster.size = CGSize(width:166*size.width/1920*1.9,height:144*size.height/1080*1.9)
+                    //let actualY = random(min:monster.size.height,max:size.height-monster.size.height)
+                    let random = getRandom(height:monster.size.height)
+                    let actualY = random.x
+                    print(actualY)
+                    monster.position = CGPoint(x:size.width+monster.size.width/2,y:actualY)
+                    //monster.zPosition = 20
+                    //monster.size = CGSize(width:166,height:144)
+                    monster.anchorPoint = CGPoint(x:0.65,y:0.5)
+                    monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.width*0.3,height:monster.size.height*0.3))
+                    monster.physicsBody?.categoryBitMask = ZombieCategory
+                    monster.physicsBody?.collisionBitMask = 0
+                    monster.physicsBody?.contactTestBitMask = BulletCategory
+                    monster.Action()
+                    addChild(monster)
+                    monster.name = "ConeheadZombie"
+                    
+                    
+                    let actionMove = SKAction.move(to: CGPoint(x:-monster.size.width/5,y:actualY), duration: 60)
+                    let actionMoveDone = SKAction.removeFromParent()
+                    monster.run(SKAction.sequence([actionMove,actionMoveDone]))
+                    /*
+                     let time: TimeInterval = 3.0
+                     let delay = dispatch_time(dispatch_time_t(DispatchTime.now()), Int64(time * Double(NSEC_PER_SEC)))
+                     */
+                    DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(3)){
+                        
+                        for i in 1...9{
+                            self.backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+                        }
+                    }
+                    
+                    /*
+                     if monster.position.x < size.width {
+                     for i in 1...9{
+                     backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+                     }
+                     }
+                     */
+                    break;
+                    
+                default:break;
+                }
+            }
+            /*
+            if GameBeginTime == 60 {
+                //add ConheadZombie
+                let monster = ConeheadZombie()
+                monster.size = CGSize(width:166*size.width/1920*1.9,height:144*size.height/1080*1.9)
+                //let actualY = random(min:monster.size.height,max:size.height-monster.size.height)
+                let random = getRandom(height:monster.size.height)
+                let actualY = random.x
+                print(actualY)
+                monster.position = CGPoint(x:size.width+monster.size.width/2,y:actualY)
+                //monster.zPosition = 20
+                //monster.size = CGSize(width:166,height:144)
+                monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.height/2,height:monster.size.height))
+                monster.physicsBody?.categoryBitMask = ZombieCategory
+                monster.physicsBody?.collisionBitMask = 0
+                monster.physicsBody?.contactTestBitMask = BulletCategory
+                monster.Action()
+                addChild(monster)
+                monster.name = "ConeheadZombie"
+                
+                
+                let actionMove = SKAction.move(to: CGPoint(x:-monster.size.width/5,y:actualY), duration: 60)
+                let actionMoveDone = SKAction.removeFromParent()
+                monster.run(SKAction.sequence([actionMove,actionMoveDone]))
+                /*
+                 let time: TimeInterval = 3.0
+                 let delay = dispatch_time(dispatch_time_t(DispatchTime.now()), Int64(time * Double(NSEC_PER_SEC)))
+                 */
+                DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(3)){
+                    
+                    for i in 1...9{
+                        self.backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+                    }
+                }
+            }
+            */
+            if GameBeginTime > 60 && Int(GameBeginTime)%14 == 0 {
+                // add Conehead
+                addCZombie()
+            }
+            if GameBeginTime > 70 && Int(GameBeginTime)%20 == 0{
+                // add PoleVaultingZombieWalk
+                addPZombie()
+            }
+            if GameBeginTime > 90 && Int(GameBeginTime)%25 == 0 {
+                //add Bucket
+                addCZombie()
+            }
+            if GameBeginTime == 60 {
+                //a lot of Zombies
+                
+                //add SKLabelNode
+                
+                let warning = SKLabelNode(fontNamed: "OpenSans-Bold")
+                
+                warning.text = "一大波僵尸正在接近"
+                warning.fontSize = 60
+                warning.fontColor = UIColor.red
+                warning.position = CGPoint(x:size.width/2,y:size.height/2)
+                
+                addChild(warning)
+                DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1)){
+                    warning.removeFromParent()
+                }
+                
+                var ZombieSum = Int(GameBeginTime)/5
+                //add GameBeginTime/5
+                addFZombie()
+                /*
+                var randomPlant = Int(GameBeginTime)/30
+                while randomPlant>=0{
+                    let randomX = Int(arc4random()%9+1)
+                    let randomY = Int(arc4random()%5+1)
+                    if let temp = backgroundpositions?.backgroundPositions[randomX][randomY] {
+                        if temp.plant != Plant.Empty {
+                            randomPlant -= 1
+                            randomDie(position:temp.plantPosition)
+                            temp.removerPlant()
+                        }
+                    }
+                }
+                */
+                while ZombieSum>5 {
+                    addZombie()
+                    addCZombie()
+                    addCZombie()
+                    //addPZombie()
+                    //addBZombie()
+                    //addPZombie()
+                    addCZombie()
+                    addZombie()
+                    addZombie()
+                    ZombieSum -= 6
+                }
+                while ZombieSum>0 {
+                    addZombie()
+                    ZombieSum -= 1
+                }
+            }
+            if GameBeginTime == 90 {
+                //a lot of Zombies
+                let warning = SKLabelNode(fontNamed: "OpenSans-Bold")
+                
+                warning.text = "一大波僵尸正在接近"
+                warning.fontSize = 60
+                warning.fontColor = UIColor.red
+                warning.position = CGPoint(x:size.width/2,y:size.height/2)
+                
+                addChild(warning)
+                DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(2)){
+                    warning.removeFromParent()
+                }
+                
+                var ZombieSum = Int(GameBeginTime)/5
+                //add GameBeginTime/5
+                addFZombie()
+                
+                
+                while ZombieSum>9 {
+                    addZombie()
+                    addZombie()
+                    addCZombie()
+                    addCZombie()
+                    addPZombie()
+                    addCZombie()
+                    addCZombie()
+                    addZombie()
+                    addZombie()
+                    ZombieSum -= 9
+                }
+                while ZombieSum>0 {
+                    addZombie()
+                    ZombieSum -= 1
+                }
+            }
+            if GameBeginTime == 120 {
+                //a lot of Zombies
+                let warning = SKLabelNode(fontNamed: "OpenSans-Bold")
+                
+                warning.text = "一大波僵尸正在接近"
+                warning.fontSize = 60
+                warning.fontColor = UIColor.red
+                warning.position = CGPoint(x:size.width/2,y:size.height/2)
+                
+                addChild(warning)
+                DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1)){
+                    warning.removeFromParent()
+                }
+                
+                var ZombieSum = Int(GameBeginTime)/5
+                //add GameBeginTime/5
+                addFZombie()
+                
+                
+                while ZombieSum>9 {
+                    addZombie()
+                    addZombie()
+                    addCZombie()
+                    addPZombie()
+                    addBZombie()
+                    addPZombie()
+                    addCZombie()
+                    addZombie()
+                    addZombie()
+                    ZombieSum -= 9
+                }
+                while ZombieSum>0 {
+                    addZombie()
+                    ZombieSum -= 1
+                }
+                
+            }
+            if GameBeginTime > 120 && Int(GameBeginTime)%13 == 0{
+                //add ConeheadZombie
+                addCZombie()
+            }
+            if GameBeginTime > 120 && Int(GameBeginTime)%17 == 0{
+                //add PoleZombie
+                addPZombie()
+            }
+            if GameBeginTime > 120 && Int(GameBeginTime)%19 == 0{
+                //add BucketHeadZombie
+                addBZombie()
+            }
+            if GameBeginTime > 120 && Int(GameBeginTime)%30 == 0 {
+                //add a lot of Zombies
+                
+                //add SKLable "Zombie King"
+                
+                //remove GameBeginTime/30 plant
+                
+                //add GameBeginTime/5
+                
+                let warning = SKLabelNode(fontNamed: "OpenSans-Bold")
+                
+                warning.text = "僵尸王吃掉了你的植物！"
+                warning.fontSize = 60
+                warning.fontColor = UIColor.red
+                warning.position = CGPoint(x:size.width/2,y:size.height/2)
+                
+                addChild(warning)
+                DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(2)){
+                    warning.removeFromParent()
+                }
+                
+                var randomPlant = Int(GameBeginTime)/30
+                while randomPlant>=0{
+                    let randomX = Int(arc4random()%9+1)
+                    let randomY = Int(arc4random()%5+1)
+                    if let temp = backgroundpositions?.backgroundPositions[randomX][randomY] {
+                        if temp.plant != Plant.Empty {
+                            randomPlant -= 1
+                            randomDie(position:temp.plantPosition)
+                            temp.removerPlant()
+                        }
+                    }
+                }
+                
+                var ZombieSum = Int(GameBeginTime)/5
+                //add GameBeginTime/5
+                addFZombie()
+                
+                
+                while ZombieSum>9 {
+                    addZombie()
+                    addZombie()
+                    addCZombie()
+                    addPZombie()
+                    addBZombie()
+                    addPZombie()
+                    addCZombie()
+                    addZombie()
+                    addZombie()
+                    ZombieSum -= 9
+                }
+                while ZombieSum>0 {
+                    addZombie()
+                    ZombieSum -= 1
+                }
+            }
+            
+            
+        }
+    }
+    /*
+    func addMonster(){
+        
+        /*
+         let monster = SKSpriteNode(imageNamed: "Zombie_0")
+         let actualY = random(min:monster.size.height/2,max:size.height-monster.size.height/2)
+         monster.position = CGPoint(x:size.width+monster.size.width/2,y:actualY)
+         addChild(monster)
+         //let actualDuration = random(min:CGFloat(2.0),max:CGFloat(4.0))
+         let actionMove = SKAction.move(to: CGPoint(x:-monster.size.width/5,y:actualY), duration: 60)
+         let actionMoveDone = SKAction.removeFromParent()
+         monster.run(SKAction.sequence([actionMove,actionMoveDone]))
+         */
+        switch (arc4random()%2){
+        case 0:
+            let monster = Zombie()
+            monster.size = CGSize(width:166*size.width/1920*1.9,height:144*size.height/1080*1.9)
+            //let actualY = random(min:monster.size.height,max:size.height-monster.size.height)
+            let random = getRandom(height:monster.size.height)
+            let actualY = random.x
+            print(actualY)
+            monster.position = CGPoint(x:size.width+monster.size.width/2,y:actualY)
+            //monster.zPosition = 20
+            //monster.size = CGSize(width:166,height:144)
+            
+            monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.height/2,height:monster.size.height))
+            monster.physicsBody?.categoryBitMask = ZombieCategory
+            monster.physicsBody?.collisionBitMask = 0
+            monster.physicsBody?.contactTestBitMask = BulletCategory
+            monster.Action()
+            addChild(monster)
+            monster.name = "Zombie"
+            /*
+             for i in 1...9{
+             backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+             }
+             */
+            let actionMove = SKAction.move(to: CGPoint(x:-monster.size.width/5,y:actualY), duration: 60)
+            let actionMoveDone = SKAction.removeFromParent()
+            monster.run(SKAction.sequence([actionMove,actionMoveDone]))
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(3)){
+                
+                for i in 1...9{
+                    self.backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+                }
+            }
+            /*
+             if monster.position.x < size.width {
+             for i in 1...9{
+             backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+             }
+             }
+             */
+            break;
+            
+        case 1:
+            let monster = ConeheadZombie()
+            monster.size = CGSize(width:166*size.width/1920*1.9,height:144*size.height/1080*1.9)
+            //let actualY = random(min:monster.size.height,max:size.height-monster.size.height)
+            let random = getRandom(height:monster.size.height)
+            let actualY = random.x
+            print(actualY)
+            monster.position = CGPoint(x:size.width+monster.size.width/2,y:actualY)
+            //monster.zPosition = 20
+            //monster.size = CGSize(width:166,height:144)
+            monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.height/2,height:monster.size.height))
+            monster.physicsBody?.categoryBitMask = ZombieCategory
+            monster.physicsBody?.collisionBitMask = 0
+            monster.physicsBody?.contactTestBitMask = BulletCategory
+            monster.Action()
+            addChild(monster)
+            monster.name = "ConeheadZombie"
+            
+            
+            let actionMove = SKAction.move(to: CGPoint(x:-monster.size.width/5,y:actualY), duration: 60)
+            let actionMoveDone = SKAction.removeFromParent()
+            monster.run(SKAction.sequence([actionMove,actionMoveDone]))
+            /*
+             let time: TimeInterval = 3.0
+             let delay = dispatch_time(dispatch_time_t(DispatchTime.now()), Int64(time * Double(NSEC_PER_SEC)))
+             */
+            DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(3)){
+                
+                for i in 1...9{
+                    self.backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+                }
+            }
+            
+            /*
+             if monster.position.x < size.width {
+             for i in 1...9{
+             backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+             }
+             }
+             */
+            break;
+            
+        default:break;
+        }
+    }
+ */
+    func addZombie(){
+        let monster = Zombie()
+        monster.size = CGSize(width:166*size.width/1920*1.9,height:144*size.height/1080*1.9)
+        //let actualY = random(min:monster.size.height,max:size.height-monster.size.height)
+        let random = getRandom(height:monster.size.height)
+        let actualY = random.x
+        print(actualY)
+        monster.anchorPoint = CGPoint(x:0.55,y:0.5)
+        monster.position = CGPoint(x:size.width+monster.size.width*2,y:actualY)
+        //monster.zPosition = 20
+        //monster.size = CGSize(width:166,height:144)
+        //monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.height/2,height:monster.size.height))
+        monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.width*0.3,height:monster.size.height*0.3))
+        monster.physicsBody?.categoryBitMask = ZombieCategory
+        monster.physicsBody?.collisionBitMask = 0
+        monster.physicsBody?.contactTestBitMask = BulletCategory
+        monster.Action()
+        addChild(monster)
+        monster.name = "Zombie"
+        
+        
+        let actionMove = SKAction.move(to: CGPoint(x:-monster.size.width/5,y:actualY), duration: 60)
+        let actionMoveDone = SKAction.removeFromParent()
+        monster.run(SKAction.sequence([actionMove,actionMoveDone]))
+        /*
+         let time: TimeInterval = 3.0
+         let delay = dispatch_time(dispatch_time_t(DispatchTime.now()), Int64(time * Double(NSEC_PER_SEC)))
+         */
+        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(3)){
+            
+            for i in 1...9{
+                self.backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+            }
+        }
+    }
+    
+    func addCZombie(){
+        let monster = ConeheadZombie()
+        monster.size = CGSize(width:166*size.width/1920*1.9,height:144*size.height/1080*1.9)
+        //let actualY = random(min:monster.size.height,max:size.height-monster.size.height)
+        let random = getRandom(height:monster.size.height)
+        let actualY = random.x
+        print(actualY)
+        monster.anchorPoint = CGPoint(x:0.65,y:0.5)
+        monster.position = CGPoint(x:size.width+monster.size.width*1.5,y:actualY)
+        //monster.zPosition = 20
+        //monster.size = CGSize(width:166,height:144)
+        //monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.height/2,height:monster.size.height))
+        monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.width*0.3,height:monster.size.height*0.3))
+        monster.physicsBody?.categoryBitMask = ZombieCategory
+        monster.physicsBody?.collisionBitMask = 0
+        monster.physicsBody?.contactTestBitMask = BulletCategory
+        monster.Action()
+        addChild(monster)
+        monster.name = "ConeheadZombie"
+        
+        
+        let actionMove = SKAction.move(to: CGPoint(x:-monster.size.width/5,y:actualY), duration: 60)
+        let actionMoveDone = SKAction.removeFromParent()
+        monster.run(SKAction.sequence([actionMove,actionMoveDone]))
+        /*
+         let time: TimeInterval = 3.0
+         let delay = dispatch_time(dispatch_time_t(DispatchTime.now()), Int64(time * Double(NSEC_PER_SEC)))
+         */
+        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(3)){
+            
+            for i in 1...9{
+                self.backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+            }
+        }
+    }
+    
+    func addFZombie(){
+        let monster = FlagZombie()
+        monster.size = CGSize(width:166*size.width/1920*1.9,height:144*size.height/1080*1.9)
+        //let actualY = random(min:monster.size.height,max:size.height-monster.size.height)
+        let random = getRandom(height:monster.size.height)
+        let actualY = random.x
+        print(actualY)
+        monster.anchorPoint = CGPoint(x:0.55,y:0.5)
+        monster.position = CGPoint(x:size.width+monster.size.width,y:actualY)
+        //monster.zPosition = 20
+        //monster.size = CGSize(width:166,height:144)
+        //monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.height/2,height:monster.size.height))
+        monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.width*0.3,height:monster.size.height*0.3))
+        monster.physicsBody?.categoryBitMask = ZombieCategory
+        monster.physicsBody?.collisionBitMask = 0
+        monster.physicsBody?.contactTestBitMask = BulletCategory
+        monster.Action()
+        addChild(monster)
+        monster.name = "FlagZombie"
+        
+        
+        let actionMove = SKAction.move(to: CGPoint(x:-monster.size.width/5,y:actualY), duration: 60)
+        let actionMoveDone = SKAction.removeFromParent()
+        monster.run(SKAction.sequence([actionMove,actionMoveDone]))
+        /*
+         let time: TimeInterval = 3.0
+         let delay = dispatch_time(dispatch_time_t(DispatchTime.now()), Int64(time * Double(NSEC_PER_SEC)))
+         */
+        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(3)){
+            
+            for i in 1...9{
+                self.backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+            }
+        }
+    }
+    
+    func addBZombie(){
+        let monster = BucketheadZombie()
+        monster.size = CGSize(width:166*size.width/1920*1.9,height:144*size.height/1080*1.9)
+        //let actualY = random(min:monster.size.height,max:size.height-monster.size.height)
+        let random = getRandom(height:monster.size.height)
+        let actualY = random.x
+        print(actualY)
+        monster.position = CGPoint(x:size.width+monster.size.width*2.5,y:actualY)
+        //monster.zPosition = 20
+        //monster.size = CGSize(width:166,height:144)
+        //monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.height/2,height:monster.size.height))
+        monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.width*0.3,height:monster.size.height*0.3))
+        monster.physicsBody?.categoryBitMask = ZombieCategory
+        monster.physicsBody?.collisionBitMask = 0
+        monster.physicsBody?.contactTestBitMask = BulletCategory
+        monster.Action()
+        addChild(monster)
+        monster.name = "BucketheadZombie"
+        
+        
+        let actionMove = SKAction.move(to: CGPoint(x:-monster.size.width/5,y:actualY), duration: 60)
+        let actionMoveDone = SKAction.removeFromParent()
+        monster.run(SKAction.sequence([actionMove,actionMoveDone]))
+        /*
+         let time: TimeInterval = 3.0
+         let delay = dispatch_time(dispatch_time_t(DispatchTime.now()), Int64(time * Double(NSEC_PER_SEC)))
+         */
+        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(3)){
+            
+            for i in 1...9{
+                self.backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+            }
+        }
+    }
+    
+    func addPZombie(){
+        let monster = PoleVaultingZombieWalk()
+        monster.size = CGSize(width:300*size.width/1920*1.9,height:200*size.height/1080*1.9)
+        //let actualY = random(min:monster.size.height,max:size.height-monster.size.height)
+        let random = getRandom(height:zombieHeight!)
+        let actualY = random.x
+        print(actualY)
+        monster.anchorPoint = CGPoint(x:0.65,y:0.35)
+        monster.position = CGPoint(x:size.width+monster.size.width*3,y:actualY)
+        //monster.zPosition = 20
+        //monster.size = CGSize(width:166,height:144)
+        //monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.height/2,height:monster.size.height))
+        monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:zombieHeight!*0.3,height:zombieHeight!*0.3))
+        monster.physicsBody?.categoryBitMask = ZombieCategory
+        monster.physicsBody?.collisionBitMask = 0
+        monster.physicsBody?.contactTestBitMask = BulletCategory
+        monster.Action()
+        addChild(monster)
+        monster.name = "PoleVaultingZombieWalk"
+        
+        let actionMove = SKAction.move(to: CGPoint(x:-monster.size.width/5,y:actualY), duration: 40)
+        let actionMoveDone = SKAction.removeFromParent()
+        monster.run(SKAction.sequence([actionMove,actionMoveDone]))
+        /*
+         let time: TimeInterval = 3.0
+         let delay = dispatch_time(dispatch_time_t(DispatchTime.now()), Int64(time * Double(NSEC_PER_SEC)))
+         */
+        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(3)){
+            
+            for i in 1...9{
+                self.backgroundpositions?.backgroundPositions[i][Int(random.y)].zombieNum += 1
+            }
+        }
+    }
+    func randomDie(position:CGPoint){
+        let monster = Zombie()
+        monster.size = CGSize(width:166*size.width/1920*1.9,height:144*size.height/1080*1.9)
+        //let actualY = random(min:monster.size.height,max:size.height-monster.size.height)
+        //let random = getRandom(height:monster.size.height)
+        //let actualY = random.x
+        //print(actualY)
+        monster.anchorPoint = CGPoint(x:0.55,y:0.5)
+        monster.position = position
+        //monster.zPosition = 20
+        //monster.size = CGSize(width:166,height:144)
+        //monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.height/2,height:monster.size.height))
+        monster.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:monster.size.width*0.3,height:monster.size.height*0.3))
+        monster.physicsBody?.categoryBitMask = ZombieCategory
+        monster.physicsBody?.collisionBitMask = 0
+        monster.physicsBody?.contactTestBitMask = BulletCategory
+        monster.Action()
+        addChild(monster)
+        monster.name = "Zombie"
+        
+        
+        //let actionMove = SKAction.move(to: CGPoint(x:-monster.size.width/5,y:actualY), duration: 60)
+        //let actionMoveDone = SKAction.removeFromParent()
+        //monster.run(SKAction.sequence([actionMove,actionMoveDone]))
+        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1)){
+            monster.removeFromParent()
+        }
+    }
 }
+
 
 
