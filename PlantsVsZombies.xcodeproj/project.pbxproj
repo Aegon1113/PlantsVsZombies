@@ -10,7 +10,6 @@
 		2324FEB121E1FB300005C46A /* BucketheadZombie.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2324FEB021E1FB300005C46A /* BucketheadZombie.atlas */; };
 		2324FEB321E1FB3E0005C46A /* FlagZombie.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2324FEB221E1FB3D0005C46A /* FlagZombie.atlas */; };
 		2324FEB521E1FB620005C46A /* PoleVaultingZombieWalk.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2324FEB421E1FB620005C46A /* PoleVaultingZombieWalk.atlas */; };
-		2342BDA821E0C0A0006426FC /* FlagZombie.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2342BDA721E0C0A0006426FC /* FlagZombie.atlas */; };
 		2342BDAA21E0C47B006426FC /* Squash.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2342BDA921E0C47A006426FC /* Squash.atlas */; };
 		2342BDAC21E0C521006426FC /* SquashAttack.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2342BDAB21E0C521006426FC /* SquashAttack.atlas */; };
 		2342BDAE21E0CFCC006426FC /* ZombieFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2342BDAD21E0CFCC006426FC /* ZombieFactory.swift */; };
@@ -61,7 +60,6 @@
 		2324FEB021E1FB300005C46A /* BucketheadZombie.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = BucketheadZombie.atlas; sourceTree = "<group>"; };
 		2324FEB221E1FB3D0005C46A /* FlagZombie.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = FlagZombie.atlas; path = ../../../Images/Zombies/FlagZombie.atlas; sourceTree = "<group>"; };
 		2324FEB421E1FB620005C46A /* PoleVaultingZombieWalk.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = PoleVaultingZombieWalk.atlas; sourceTree = "<group>"; };
-		2342BDA721E0C0A0006426FC /* FlagZombie.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = FlagZombie.atlas; sourceTree = "<group>"; };
 		2342BDA921E0C47A006426FC /* Squash.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Squash.atlas; sourceTree = "<group>"; };
 		2342BDAB21E0C521006426FC /* SquashAttack.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SquashAttack.atlas; sourceTree = "<group>"; };
 		2342BDAD21E0CFCC006426FC /* ZombieFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZombieFactory.swift; sourceTree = "<group>"; };
@@ -128,7 +126,6 @@
 				2324FEB021E1FB300005C46A /* BucketheadZombie.atlas */,
 				2342BDAB21E0C521006426FC /* SquashAttack.atlas */,
 				2342BDA921E0C47A006426FC /* Squash.atlas */,
-				2342BDA721E0C0A0006426FC /* FlagZombie.atlas */,
 				237C516B21DE2DC800D86555 /* Sun.atlas */,
 				237C516921DE28A200D86555 /* Threepeater.atlas */,
 				237C516721DE289A00D86555 /* CherryBomb.atlas */,
@@ -326,7 +323,6 @@
 				23CD890021E22542002DE2E4 /* README.md in Resources */,
 				237992D621A3FA1B003005D0 /* GameScene.sks in Resources */,
 				2342BDAC21E0C521006426FC /* SquashAttack.atlas in Resources */,
-				2342BDA821E0C0A0006426FC /* FlagZombie.atlas in Resources */,
 				2324FEB321E1FB3E0005C46A /* FlagZombie.atlas in Resources */,
 				237992E121A3FA22003005D0 /* Assets.xcassets in Resources */,
 				237C516621DE289200D86555 /* SnowPea.atlas in Resources */,

@@ -36,9 +36,26 @@ class DaveShopViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        sunCost.setTitle(String(moneyCost[sunLevel]), for: .normal)
-        startCost.setTitle(String(moneyCost[startLevel]), for: .normal)
-        shovelCost.setTitle(String(moneyCost[shovelLevel]), for: .normal)
+        if sunLevel >= 3 {
+            sunCost.setTitle("MAX", for: .normal)
+        }
+        else{
+            sunCost.setTitle(String(moneyCost[sunLevel]), for: .normal)
+        }
+        if startLevel >= 3{
+            startCost.setTitle("MAX", for: .normal)
+
+        }
+        else{
+            startCost.setTitle(String(moneyCost[startLevel]), for: .normal)
+        }
+        if shovelLevel >= 3{
+            shovelCost.setTitle("MAX", for: .normal)
+
+        }
+        else{
+            shovelCost.setTitle(String(moneyCost[shovelLevel]), for: .normal)
+        }
         moneyForShop.text = String(money)
         // Do any additional setup after loading the view.
     }
